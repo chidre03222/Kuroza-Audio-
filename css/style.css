@@ -1,0 +1,118 @@
+/* ==========================================
+   1. HERO SECTION (ESCRITORIO & GENERAL)
+   ========================================== */
+.hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 1rem;
+  /* El '../' sale de la carpeta css/ para buscar la imagen */
+  background-image: 
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.85) 70%, #ffffff 100%), 
+    url('../images/hero/techo japones.jpg');
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* ==========================================
+   2. RESPONSIVE DESIGN (MÓVIL & TABLETS)
+   ========================================== */
+@media (max-width: 768px) {
+  /* Navegación más compacta */
+  .navbar {
+    padding: 1rem 4%;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-links a {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+  }
+
+  /* Hero ajustado para celular (mantiene la imagen) */
+  .hero {
+    height: 90vh;
+    padding: 0 1.5rem;
+    background-image: 
+      linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.85) 70%, #ffffff 100%), 
+      url('../images/hero/techo japones.jpg');
+    background-position: top center;
+    background-size: cover;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    letter-spacing: 3px;
+  }
+
+  .hero-kanji {
+    font-size: 0.9rem;
+    letter-spacing: 4px;
+  }
+
+  .hero p {
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+  }
+
+  /* Secciones y espaciados */
+  .section {
+    padding: 4rem 1.5rem;
+  }
+
+  .section-title h2 {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+  }
+
+  /* Tarjetas de Beats alineadas en columna */
+  .beat-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .beat-card .btn-main {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Grillas a 1 sola columna limpia */
+  .services-grid,
+  .licenses-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .license-card {
+    padding: 2rem 1.2rem;
+  }
+
+  .license-price {
+    font-size: 2.2rem;
+  }
+}
+
+/* Pantallas muy pequeñas (iPhone SE, etc.) */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  
+  .brand {
+    font-size: 1.2rem;
+  }
+}
