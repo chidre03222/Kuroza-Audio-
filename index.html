@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -36,36 +36,44 @@
     #admin-bar { display: none; align-items: center; gap: 1rem; }
     .btn-admin-act { background: #ffffff; color: #000000; border: none; padding: 0.5rem 1rem; font-weight: 800; border-radius: 4px; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; }
 
-    /* HERO SECTION */
+    /* HERO SECTION WITH IMAGE CONTAINER */
     .hero {
+      position: relative;
       min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-      text-align: center; padding: 0 1rem;
-      background: linear-gradient(180deg, rgba(13,13,13,0.4) 0%, rgba(13,13,13,1) 100%), url('images/hero.jpg') center/cover no-repeat;
+      text-align: center; padding: 8rem 1rem 4rem;
       border-bottom: 1px solid var(--border);
+      overflow: hidden;
     }
-    .hero h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: 8px; text-transform: uppercase; margin-bottom: 0.5rem; }
-    .hero p { font-size: 1rem; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 2rem; }
+    .hero-bg-img {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 1; opacity: 0.45;
+    }
+    .hero-content {
+      position: relative; z-index: 2; max-width: 900px;
+    }
+    .hero h1 { font-size: 3.8rem; font-weight: 800; letter-spacing: 8px; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .hero p { font-size: 0.95rem; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 2rem; }
 
-    /* SECCIONES GENERALES */
+    /* GENERAL SECTIONS */
     section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
     .section-title { text-align: center; font-size: 2rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 3rem; }
 
-    /* GRID REPRODUCTOR DE BEATS */
+    /* BEATS CATALOGUE GRID */
     .beats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
     .beat-card { background: var(--surface-card); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; text-align: center; }
     .beat-card img { width: 100%; height: 220px; object-fit: cover; border-radius: 6px; margin-bottom: 1rem; }
 
-    /* SERVICIOS */
+    /* SERVICES */
     .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
     .service-card { background: var(--surface); border: 1px solid var(--border); padding: 2.5rem; border-radius: 8px; text-align: center; }
     .service-card h3 { font-size: 1.3rem; letter-spacing: 2px; margin-bottom: 1rem; text-transform: uppercase; }
 
-    /* LICENCIAS */
+    /* LICENSES */
     .licenses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
     .lic-card { background: var(--surface); border: 1px solid var(--border); padding: 2rem; border-radius: 8px; text-align: center; }
     .lic-price { font-size: 2rem; font-weight: 800; margin: 1rem 0; color: #fff; }
 
-    /* GALERÍA / YOUTUBE GRID */
+    /* MEDIA / YOUTUBE GRID */
     .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
     .media-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
 
@@ -74,7 +82,7 @@
     .flora-secret { cursor: pointer; transition: 0.3s; }
     .flora-secret:hover { color: #ffffff; }
 
-    /* MODALES PRIVADOS */
+    /* PRIVATE MODALS */
     .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 1rem; }
     .modal-card { background: var(--surface-card); border: 1px solid var(--border); padding: 2.5rem; border-radius: 8px; width: 100%; max-width: 500px; position: relative; color: #fff; }
     .close-btn { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; cursor: pointer; color: var(--muted); }
@@ -95,53 +103,56 @@
     <a href="#" class="logo">KUROZA</a>
     <nav>
       <a href="#beats">Beats</a>
-      <a href="#services">Servicios</a>
-      <a href="#licenses">Licencias</a>
+      <a href="#services">Services</a>
+      <a href="#licenses">Licensing</a>
       <a href="#media">Media / YT</a>
-      <a href="#contact">Contacto</a>
+      <a href="#contact">Contact</a>
     </nav>
     <div id="admin-bar">
-      <button class="btn-admin-act" id="open-upload-btn">+ Panel Creador</button>
-      <button style="background:transparent; color:var(--muted); border:none; cursor:pointer;" id="logout-btn">Salir</button>
+      <button class="btn-admin-act" id="open-upload-btn">+ Creator Panel</button>
+      <button style="background:transparent; color:var(--muted); border:none; cursor:pointer;" id="logout-btn">Log Out</button>
     </div>
   </header>
 
-  <!-- HERO SECTION -->
+  <!-- HERO SECTION WITH LOCAL VS CODE IMAGE -->
   <div class="hero">
-    <h1>KUROZA</h1>
-    <p>CHINO THE ARCHITECT — MUSIC & AUDIO PRODUCTION</p>
+    <img src="images/hero.jpg" alt="KUROZA Hero Background" class="hero-bg-img" onerror="this.src='https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1920&q=80';">
+    <div class="hero-content">
+      <h1>KUROZA</h1>
+      <p>CHINO THE ARCHITECT — MUSIC & AUDIO PRODUCTION</p>
+    </div>
   </div>
 
-  <!-- SECCIÓN DE BEATS -->
+  <!-- BEATS CATALOGUE SECTION -->
   <section id="beats">
     <h2 class="section-title">Official Beat Catalogue</h2>
     <div class="beats-grid" id="beats-container">
-      <p style="grid-column: 1/-1; text-align: center; color: var(--muted);">Cargando catálogo oficial...</p>
+      <p style="grid-column: 1/-1; text-align: center; color: var(--muted);">Loading official catalogue...</p>
     </div>
   </section>
 
-  <!-- SECCIÓN DE SERVICIOS -->
+  <!-- SERVICES SECTION -->
   <section id="services">
-    <h2 class="section-title">Estudio & Producción</h2>
+    <h2 class="section-title">Studio & Production Services</h2>
     <div class="services-grid">
       <div class="service-card">
-        <h3>Mezcla Profesional</h3>
-        <p style="color: var(--muted); font-size: 0.9rem;">Procesamiento analógico y digital para dar espacio, profundidad y pegada a tus stems.</p>
+        <h3>Professional Mixing</h3>
+        <p style="color: var(--muted); font-size: 0.9rem;">Analog and digital processing to give high space, depth, and punch to your stems.</p>
       </div>
       <div class="service-card">
         <h3>Mastering</h3>
-        <p style="color: var(--muted); font-size: 0.9rem;">Optimización de volumen comercial, claridad y balance para plataformas digitales.</p>
+        <p style="color: var(--muted); font-size: 0.9rem;">Commercial loudness optimization, clarity, and tonal balance tailored for digital platforms.</p>
       </div>
       <div class="service-card">
-        <h3>Producción Ejecutiva</h3>
-        <p style="color: var(--muted); font-size: 0.9rem;">Creación de instrumental a medida, arreglo técnico y dirección artística completa.</p>
+        <h3>Executive Production</h3>
+        <p style="color: var(--muted); font-size: 0.9rem;">Custom beat composition, technical arrangement, and complete artistic direction.</p>
       </div>
     </div>
   </section>
 
-  <!-- SECCIÓN DE LICENCIAS -->
+  <!-- LICENSING SECTION -->
   <section id="licenses">
-    <h2 class="section-title">Licencias & Precios</h2>
+    <h2 class="section-title">Licensing & Pricing</h2>
     <div class="licenses-grid">
       <div class="lic-card">
         <h3>BASIC LEASE</h3>
@@ -156,45 +167,45 @@
       <div class="lic-card">
         <h3>UNLIMITED</h3>
         <div class="lic-price">$149</div>
-        <p style="color: var(--muted); font-size: 0.8rem;">WAV + Stems Separados<br>Streams Ilimitados</p>
+        <p style="color: var(--muted); font-size: 0.8rem;">WAV + Track Stems<br>Unlimited Streams</p>
       </div>
       <div class="lic-card">
         <h3>EXCLUSIVE</h3>
         <div class="lic-price">$500+</div>
-        <p style="color: var(--muted); font-size: 0.8rem;">Derechos Totales<br>Contrato Completo</p>
+        <p style="color: var(--muted); font-size: 0.8rem;">Full Ownership Rights<br>Exclusive Contract</p>
       </div>
     </div>
   </section>
 
-  <!-- SECCIÓN DE MEDIA / YOUTUBE -->
+  <!-- MEDIA / YOUTUBE SECTION -->
   <section id="media">
-    <h2 class="section-title">Galería & YouTube</h2>
+    <h2 class="section-title">Gallery & YouTube</h2>
     <div class="media-grid" id="media-container">
-      <p style="grid-column: 1/-1; text-align: center; color: var(--muted);">Cargando contenido multimedia...</p>
+      <p style="grid-column: 1/-1; text-align: center; color: var(--muted);">Loading media content...</p>
     </div>
   </section>
 
-  <!-- SECCIÓN DE CONTACTO -->
+  <!-- CONTACT SECTION -->
   <section id="contact" style="text-align: center;">
-    <h2 class="section-title">Contacto & Proyectos</h2>
-    <p style="color: var(--muted); max-width: 600px; margin: 0 auto 2rem;">¿Tienes un proyecto de producción, mezcla o mastering? hablemos directo.</p>
-    <a href="mailto:kuroza@outlook.es" style="display: inline-block; padding: 1rem 2.5rem; background: #fff; color: #000; text-decoration: none; font-weight: 800; border-radius: 4px; letter-spacing: 2px;">ENVIAR MENSAJE</a>
+    <h2 class="section-title">Contact & Custom Work</h2>
+    <p style="color: var(--muted); max-width: 600px; margin: 0 auto 2rem;">Have an upcoming production, mixing, or mastering project? Let's work directly.</p>
+    <a href="mailto:kuroza@outlook.es" style="display: inline-block; padding: 1rem 2.5rem; background: #fff; color: #000; text-decoration: none; font-weight: 800; border-radius: 4px; letter-spacing: 2px;">SEND MESSAGE</a>
   </section>
 
-  <!-- FOOTER CON BOTÓN OCULTO -->
+  <!-- FOOTER WITH SECRET FLORA ACCESS -->
   <footer>
     <p>© 2026 KUROZA AUDIO. ALL RIGHTS RESERVED. POWERED BY <span class="flora-secret" id="secret-flora">FLORA JANUS TAPES</span></p>
   </footer>
 
-  <!-- MODAL 1: LOGIN SECRETO (Se activa con clic en FLORA) -->
+  <!-- MODAL 1: SECRET LOGIN (CLICK ON FLORA) -->
   <div id="login-modal" class="modal-overlay">
     <div class="modal-card">
       <span class="close-btn" id="close-login">&times;</span>
-      <h2 style="font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem;">Acceso Privado Architect</h2>
-      <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Ingresa tus credenciales para administrar el sitio.</p>
+      <h2 style="font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem;">Private Architect Access</h2>
+      <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Enter your credentials to manage catalogue.</p>
       <form id="login-form">
         <div class="form-group">
-          <label>Email Admin</label>
+          <label>Admin Email</label>
           <input type="email" id="login-email" placeholder="kuroza@outlook.es" required />
         </div>
         <div class="form-group">
@@ -206,57 +217,57 @@
     </div>
   </div>
 
-  <!-- MODAL 2: PANEL DE SUBIDA CON PESTAÑAS Y " + " -->
+  <!-- MODAL 2: CREATOR PANEL WITH TABS AND PLUS (+) -->
   <div id="upload-modal" class="modal-overlay">
     <div class="modal-card">
       <span class="close-btn" id="close-upload">&times;</span>
-      <h2 style="font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem;">+ Cargar Contenido</h2>
+      <h2 style="font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem;">+ Upload Content</h2>
       
-      <!-- Pestañas para elegir qué subir -->
+      <!-- Tabs -->
       <div class="tab-menu">
-        <button class="tab-btn active" id="tab-beat-btn">Subir Beat</button>
-        <button class="tab-btn" id="tab-media-btn">Imagen / YouTube</button>
+        <button class="tab-btn active" id="tab-beat-btn">Upload Beat</button>
+        <button class="tab-btn" id="tab-media-btn">Gallery / YouTube</button>
       </div>
 
-      <!-- FORMULARIO 1: SUBIR BEAT -->
+      <!-- FORM 1: UPLOAD BEAT -->
       <form id="form-upload-beat">
         <div class="form-group">
-          <label>Título del Beat</label>
-          <input type="text" id="beat-title" placeholder="ej. SHINOBI" required />
+          <label>Beat Title</label>
+          <input type="text" id="beat-title" placeholder="e.g. SHINOBI" required />
         </div>
         <div class="form-group">
-          <label>Género / BPM & Key</label>
-          <input type="text" id="beat-info" placeholder="ej. Dancehall | 140 BPM - F# Minor" required />
+          <label>Genre / BPM & Key</label>
+          <input type="text" id="beat-info" placeholder="e.g. Dancehall | 140 BPM - F# Minor" required />
         </div>
         <div class="form-group">
-          <label>URL Imagen Portada</label>
+          <label>Cover Art Image URL</label>
           <input type="url" id="beat-cover" placeholder="https://..." required />
         </div>
         <div class="form-group">
-          <label>Link MP3 o ID Video YouTube</label>
-          <input type="text" id="beat-audio" placeholder="Link de MP3 o ID YouTube (ej. dQw4w9WgXcQ)" required />
+          <label>MP3 Link or YouTube Video ID</label>
+          <input type="text" id="beat-audio" placeholder="MP3 Link or YouTube ID (e.g. dQw4w9WgXcQ)" required />
         </div>
-        <button type="submit" class="btn-full">Publicar Beat</button>
+        <button type="submit" class="btn-full">Publish Beat</button>
       </form>
 
-      <!-- FORMULARIO 2: SUBIR GALERÍA / YOUTUBE -->
+      <!-- FORM 2: UPLOAD GALLERY / YOUTUBE -->
       <form id="form-upload-media" style="display: none;">
         <div class="form-group">
-          <label>Título / Descripción</label>
-          <input type="text" id="media-title" placeholder="ej. Sesión de Grabación / Nuevo Video" required />
+          <label>Title / Description</label>
+          <input type="text" id="media-title" placeholder="e.g. Studio Session / Official Video" required />
         </div>
         <div class="form-group">
-          <label>Tipo de Contenido</label>
+          <label>Content Type</label>
           <select id="media-type">
-            <option value="youtube">Video de YouTube (ID)</option>
-            <option value="image">Foto para Galería (URL)</option>
+            <option value="youtube">YouTube Video (ID)</option>
+            <option value="image">Gallery Photo (URL)</option>
           </select>
         </div>
         <div class="form-group">
-          <label>URL Imagen o ID de YouTube</label>
-          <input type="text" id="media-url" placeholder="ej. dQw4w9WgXcQ o https://imagen.jpg" required />
+          <label>Image URL or YouTube Video ID</label>
+          <input type="text" id="media-url" placeholder="e.g. dQw4w9WgXcQ or https://image.jpg" required />
         </div>
-        <button type="submit" class="btn-full">Publicar a Galería</button>
+        <button type="submit" class="btn-full">Publish to Gallery</button>
       </form>
 
     </div>
@@ -281,7 +292,7 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
 
-    // Elementos DOM
+    // DOM Elements
     const secretFlora = document.getElementById('secret-flora');
     const loginModal = document.getElementById('login-modal');
     const uploadModal = document.getElementById('upload-modal');
@@ -291,13 +302,13 @@
     const beatsContainer = document.getElementById('beats-container');
     const mediaContainer = document.getElementById('media-container');
 
-    // Clic Secreto en FLORA
+    // Secret Flora Click Event
     secretFlora.addEventListener('click', () => { if(!auth.currentUser) loginModal.style.display = 'flex'; });
     document.getElementById('close-login').addEventListener('click', () => loginModal.style.display = 'none');
     document.getElementById('close-upload').addEventListener('click', () => uploadModal.style.display = 'none');
     openUploadBtn.addEventListener('click', () => uploadModal.style.display = 'flex');
 
-    // Cambiar Pestañas en el Panel Creador
+    // Switch Tabs in Creator Panel
     const tabBeatBtn = document.getElementById('tab-beat-btn');
     const tabMediaBtn = document.getElementById('tab-media-btn');
     const formBeat = document.getElementById('form-upload-beat');
@@ -312,7 +323,7 @@
       formMedia.style.display = 'block'; formBeat.style.display = 'none';
     });
 
-    // Detectar Autenticación Secreta
+    // Detect Secret Auth
     auth.onAuthStateChanged((user) => {
       if (user) {
         adminBar.style.display = 'flex';
@@ -322,19 +333,19 @@
       }
     });
 
-    // Iniciar Sesión
+    // Login Event
     document.getElementById('login-form').addEventListener('submit', (e) => {
       e.preventDefault();
       auth.signInWithEmailAndPassword(
         document.getElementById('login-email').value,
         document.getElementById('login-pass').value
       ).then(() => loginModal.style.display = 'none')
-      .catch(err => alert("Acceso denegado: " + err.message));
+      .catch(err => alert("Access Denied: " + err.message));
     });
 
     logoutBtn.addEventListener('click', () => auth.signOut());
 
-    // Guardar Beat en Firestore
+    // Save Beat to Firestore
     formBeat.addEventListener('submit', (e) => {
       e.preventDefault();
       db.collection('beats').add({
@@ -344,12 +355,12 @@
         audio: document.getElementById('beat-audio').value,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       }).then(() => {
-        alert("¡Beat subido!");
+        alert("Beat Published Successfully!");
         formBeat.reset(); uploadModal.style.display = 'none';
       });
     });
 
-    // Guardar Media / YouTube en Firestore
+    // Save Media / YouTube to Firestore
     formMedia.addEventListener('submit', (e) => {
       e.preventDefault();
       db.collection('media').add({
@@ -358,15 +369,15 @@
         url: document.getElementById('media-url').value,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       }).then(() => {
-        alert("¡Contenido multimedia publicado!");
+        alert("Media Content Published Successfully!");
         formMedia.reset(); uploadModal.style.display = 'none';
       });
     });
 
-    // Cargar Beats en Tiempo Real
+    // Load Real-time Beats
     db.collection('beats').orderBy('createdAt', 'desc').onSnapshot(snap => {
       beatsContainer.innerHTML = '';
-      if(snap.empty) { beatsContainer.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:var(--muted);">Sin lanzamientos de beats aún.</p>'; return; }
+      if(snap.empty) { beatsContainer.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:var(--muted);">No beat releases yet.</p>'; return; }
       snap.forEach(doc => {
         const b = doc.data();
         beatsContainer.innerHTML += `
@@ -383,10 +394,10 @@
       });
     });
 
-    // Cargar Media / YouTube en Tiempo Real
+    // Load Real-time Media / YouTube
     db.collection('media').orderBy('createdAt', 'desc').onSnapshot(snap => {
       mediaContainer.innerHTML = '';
-      if(snap.empty) { mediaContainer.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:var(--muted);">Sin videos ni fotos agregadas.</p>'; return; }
+      if(snap.empty) { mediaContainer.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:var(--muted);">No videos or photos added yet.</p>'; return; }
       snap.forEach(doc => {
         const m = doc.data();
         mediaContainer.innerHTML += `
