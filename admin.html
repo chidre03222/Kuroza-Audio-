@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KUROZA | Admin Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f9fafb;
+      --border: #e5e7eb;
+      --accent: #000000;
+      --text: #111827;
+      --muted: #6b7280;
+    }
+
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+      font-family: 'Plus Jakarta Sans', sans-serif; 
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .admin-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    }
+
+    .admin-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .admin-header h1 {
+      font-size: 1.5rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .admin-header p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.9rem;
+      outline: none;
+      background: #ffffff;
+    }
+
+    .form-group input:focus {
+      border-color: var(--accent);
+    }
+
+    .btn-admin {
+      width: 100%;
+      padding: 1rem;
+      background: var(--accent);
+      color: #ffffff;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.3s;
+    }
+
+    .btn-admin:hover {
+      background: #374151;
+    }
+
+    #dashboard-panel {
+      display: none;
+    }
+
+    .logout-link {
+      display: block;
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PANTALLA DE LOGIN -->
+  <div id="login-panel" class="admin-card">
+    <div class="admin-header">
+      <h1>KUROZA ARCHITECT</h1>
+      <p>PRIVATE ACCESS ONLY</p>
+    </div>
+    <form id="login-form">
+      <div class="form-group">
+        <label>Admin Email</label>
+        <input type="email" id="login-email" placeholder="kuroza@outlook.es" required />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="login-pass" placeholder="••••••••" required />
+      </div>
+      <button type="submit" class="btn-admin">Authenticate</button>
+    </form>
+  </div>
+
+  <!-- PANEL DE ADMINISTRACIÓN (DASHBOARD) -->
+  <div id="dashboard-panel" class="admin-card">
+    <div class="admin-header">
+      <h1>UPLOAD NEW BEAT</h1>
+      <p>PUBLISH AUTOMATICALLY TO CATALOG</p>
+    </div>
+    <form id="upload-beat-form">
+      <div class="form-group">
+        <label>Beat Title</label>
+        <input type="text" id="beat-title" placeholder="e.g. SHINOBI" required />
+      </div>
+      <div class="form-group">
+        <label>Genre / Style</label>
+        <input type="text" id="beat-genre" placeholder="e.g. Dancehall / Urban" required />
+      </div>
+      <div class="form-group">
+        <label>BPM & Key</label>
+        <div style="display: flex; gap: 0.5rem;">
+          <input type="text" id="beat-bpm" placeholder="140 BPM" required />
+          <input type="text" id="beat-key" placeholder="F# Minor" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Audio Preview (MP3 File)</label>
+        <input type="file" id="beat-audio-file" accept="audio/mp3,audio/mpeg" required />
+      </div>
+      <div class="form-group">
+        <label>Cover Art (Image File)</label>
+        <input type="file" id="beat-cover-file" accept="image/*" required />
+      </div>
+      <div class="form-group">
+        <label>YouTube Video ID (Optional)</label>
+        <input type="text" id="beat-youtube-id" placeholder="e.g. dQw4w9WgXcQ" />
+      </div>
+      <button type="submit" class="btn-admin">Publish Beat Now</button>
+    </form>
+    <span id="logout-btn" class="logout-link">Log Out & Exit</span>
+  </div>
+
+  <!-- SDKs de Firebase v9 Compat -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+
+  <script>
+    // Configuración oficial de kuroza-app
+    const firebaseConfig = {
+      apiKey: "AIzaSyADgnsPUKfomaD32xEEneJ_D0efwNbNzaQ",
+      authDomain: "kuroza-app.firebaseapp.com",
+      projectId: "kuroza-app",
+      storageBucket: "kuroza-app.firebasestorage.app",
+      messagingSenderId: "967232879538",
+      appId: "1:967232879538:web:970f4312098cfbb23f02ab"
+    };
+
+    // Inicializar Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    const loginForm = document.getElementById('login-form');
+    const loginPanel = document.getElementById('login-panel');
+    const dashboardPanel = document.getElementById('dashboard-panel');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    // Escuchar el estado de autenticación en tiempo real
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        loginPanel.style.display = 'none';
+        dashboardPanel.style.display = 'block';
+      } else {
+        loginPanel.style.display = 'block';
+        dashboardPanel.style.display = 'none';
+      }
+    });
+
+    // Iniciar Sesión con Firebase
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const pass = document.getElementById('login-pass').value;
+
+      auth.signInWithEmailAndPassword(email, pass)
+        .then((userCredential) => {
+          console.log("Acceso concedido:", userCredential.user);
+        })
+        .catch((error) => {
+          alert("Acceso denegado: " + error.message);
+        });
+    });
+
+    // Cerrar Sesión
+    logoutBtn.addEventListener('click', () => {
+      auth.signOut();
+    });
+  </script>
+</body>
+</html>
