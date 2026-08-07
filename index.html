@@ -3,184 +3,195 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KUROZA | Official Catalogue</title>
+  <title>KUROZA | Chino The Architect - Official Site</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --bg: #ffffff;
-      --surface: #f9fafb;
-      --border: #e5e7eb;
-      --accent: #000000;
-      --text: #111827;
-      --muted: #6b7280;
+      --bg: #0d0d0d;
+      --surface: #141414;
+      --surface-card: #1c1c1c;
+      --border: #2a2a2a;
+      --text: #ffffff;
+      --muted: #a1a1aa;
+      --accent: #ffffff;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-    body { background-color: var(--bg); color: var(--text); }
+    body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
 
-    /* BARRA SUPERIOR LIMPIA */
+    /* HEADER */
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem 2rem;
+      position: fixed; top: 0; left: 0; right: 0;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 3rem; background: rgba(13, 13, 13, 0.85);
+      backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--border);
+    }
+    .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 4px; color: var(--text); text-decoration: none; }
+    nav a { color: var(--muted); text-decoration: none; margin-left: 2rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; transition: 0.3s; }
+    nav a:hover { color: var(--text); }
+
+    #admin-bar { display: none; align-items: center; gap: 1rem; }
+    .btn-admin-act { background: #ffffff; color: #000000; border: none; padding: 0.5rem 1rem; font-weight: 800; border-radius: 4px; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; }
+
+    /* HERO SECTION */
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; padding: 0 1rem;
+      background: linear-gradient(180deg, rgba(13,13,13,0.4) 0%, rgba(13,13,13,1) 100%), url('images/hero.jpg') center/cover no-repeat;
       border-bottom: 1px solid var(--border);
     }
+    .hero h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: 8px; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .hero p { font-size: 1rem; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 2rem; }
 
-    .brand-logo {
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: 3px;
-      cursor: pointer; /* Haz clic aquí para activar el acceso secreto */
-      user-select: none;
-    }
+    /* SECCIONES GENERALES */
+    section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .section-title { text-align: center; font-size: 2rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 3rem; }
 
-    /* EL BOTÓN DE PUBLICAR Y EL ESTADO SOLO SE VEN SI ESTÁS LOGUEADO */
-    #admin-toolbar {
-      display: none; /* Oculto por defecto para el público */
-      align-items: center;
-      gap: 1rem;
-    }
+    /* GRID REPRODUCTOR DE BEATS */
+    .beats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
+    .beat-card { background: var(--surface-card); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; text-align: center; }
+    .beat-card img { width: 100%; height: 220px; object-fit: cover; border-radius: 6px; margin-bottom: 1rem; }
 
-    .btn-action {
-      background: var(--accent);
-      color: #ffffff;
-      border: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      cursor: pointer;
-      text-transform: uppercase;
-    }
+    /* SERVICIOS */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+    .service-card { background: var(--surface); border: 1px solid var(--border); padding: 2.5rem; border-radius: 8px; text-align: center; }
+    .service-card h3 { font-size: 1.3rem; letter-spacing: 2px; margin-bottom: 1rem; text-transform: uppercase; }
 
-    .btn-logout {
-      background: transparent;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      padding: 0.5rem 0.8rem;
-      border-radius: 4px;
-      font-size: 0.7rem;
-      cursor: pointer;
-    }
+    /* LICENCIAS */
+    .licenses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+    .lic-card { background: var(--surface); border: 1px solid var(--border); padding: 2rem; border-radius: 8px; text-align: center; }
+    .lic-price { font-size: 2rem; font-weight: 800; margin: 1rem 0; color: #fff; }
 
-    /* MODAL DE AUTENTICACIÓN / CREACIÓN */
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.7);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      padding: 1rem;
-    }
+    /* GALERÍA / YOUTUBE GRID */
+    .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+    .media-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
 
-    .modal-card {
-      background: #ffffff;
-      padding: 2.5rem;
-      border-radius: 8px;
-      width: 100%;
-      max-width: 480px;
-      position: relative;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
+    /* FOOTER */
+    footer { text-align: center; padding: 3rem 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.8rem; }
+    .flora-secret { cursor: pointer; transition: 0.3s; }
+    .flora-secret:hover { color: #ffffff; }
 
-    .close-btn {
-      position: absolute;
-      top: 1rem; right: 1rem;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--muted);
-    }
-
+    /* MODALES PRIVADOS */
+    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 1rem; }
+    .modal-card { background: var(--surface-card); border: 1px solid var(--border); padding: 2.5rem; border-radius: 8px; width: 100%; max-width: 500px; position: relative; color: #fff; }
+    .close-btn { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; cursor: pointer; color: var(--muted); }
     .form-group { margin-bottom: 1.2rem; }
-    .form-group label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 0.4rem;
-    }
-    .form-group input {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      outline: none;
-    }
+    .form-group label { display: block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.4rem; letter-spacing: 1px; }
+    .form-group input, .form-group select { width: 100%; padding: 0.8rem; background: var(--surface); border: 1px solid var(--border); color: #fff; border-radius: 4px; outline: none; }
+    .btn-full { width: 100%; padding: 1rem; background: #fff; color: #000; font-weight: 800; text-transform: uppercase; border: none; border-radius: 4px; cursor: pointer; margin-top: 0.5rem; letter-spacing: 1px; }
 
-    .btn-full {
-      width: 100%;
-      padding: 1rem;
-      background: var(--accent);
-      color: #ffffff;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-top: 0.5rem;
-    }
-
-    /* FOOTER DISCRETO */
-    footer {
-      text-align: center;
-      padding: 3rem 1rem 1.5rem;
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-    .secret-dot {
-      cursor: pointer;
-      opacity: 0.3;
-      margin-left: 5px;
-    }
+    .tab-menu { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .tab-btn { flex: 1; padding: 0.6rem; background: var(--surface); border: 1px solid var(--border); color: var(--muted); cursor: pointer; font-size: 0.75rem; font-weight: 700; border-radius: 4px; }
+    .tab-btn.active { background: #fff; color: #000; }
   </style>
 </head>
 <body>
 
   <!-- HEADER -->
   <header>
-    <!-- Al hacer clic en el título se abre la contraseña secreta -->
-    <div class="brand-logo" id="secret-trigger">KUROZA</div>
-    
-    <!-- BARRA PRIVADA: SOLO VISIBLE SI INICIASTE SESIÓN -->
-    <div id="admin-toolbar">
-      <button class="btn-action" id="open-upload-btn">+ Publicar Beat</button>
-      <button class="btn-logout" id="logout-btn">Salir</button>
+    <a href="#" class="logo">KUROZA</a>
+    <nav>
+      <a href="#beats">Beats</a>
+      <a href="#services">Servicios</a>
+      <a href="#licenses">Licencias</a>
+      <a href="#media">Media / YT</a>
+      <a href="#contact">Contacto</a>
+    </nav>
+    <div id="admin-bar">
+      <button class="btn-admin-act" id="open-upload-btn">+ Panel Creador</button>
+      <button style="background:transparent; color:var(--muted); border:none; cursor:pointer;" id="logout-btn">Salir</button>
     </div>
   </header>
 
-  <!-- CATÁLOGO PÚBLICO -->
-  <main style="padding: 3rem 1.5rem; max-width: 1200px; margin: 0 auto;">
-    <section style="text-align: center; margin-bottom: 3.5rem;">
-      <h1 style="font-size: 2.2rem; letter-spacing: 4px; text-transform: uppercase;">Official Catalogue</h1>
-      <p style="color: var(--muted); font-size: 0.85rem; letter-spacing: 1px; margin-top: 0.5rem;">BEATS & PRODUCTION BY KUROZA</p>
-    </section>
+  <!-- HERO SECTION -->
+  <div class="hero">
+    <h1>KUROZA</h1>
+    <p>CHINO THE ARCHITECT — MUSIC & AUDIO PRODUCTION</p>
+  </div>
 
-    <div id="beats-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;">
-      <p style="text-align: center; grid-column: 1/-1; color: var(--muted);">Cargando catálogo...</p>
+  <!-- SECCIÓN DE BEATS -->
+  <section id="beats">
+    <h2 class="section-title">Official Beat Catalogue</h2>
+    <div class="beats-grid" id="beats-container">
+      <p style="grid-column: 1/-1; text-align: center; color: var(--muted);">Cargando catálogo oficial...</p>
     </div>
-  </main>
+  </section>
 
-  <!-- FOOTER -->
+  <!-- SECCIÓN DE SERVICIOS -->
+  <section id="services">
+    <h2 class="section-title">Estudio & Producción</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>Mezcla Profesional</h3>
+        <p style="color: var(--muted); font-size: 0.9rem;">Procesamiento analógico y digital para dar espacio, profundidad y pegada a tus stems.</p>
+      </div>
+      <div class="service-card">
+        <h3>Mastering</h3>
+        <p style="color: var(--muted); font-size: 0.9rem;">Optimización de volumen comercial, claridad y balance para plataformas digitales.</p>
+      </div>
+      <div class="service-card">
+        <h3>Producción Ejecutiva</h3>
+        <p style="color: var(--muted); font-size: 0.9rem;">Creación de instrumental a medida, arreglo técnico y dirección artística completa.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN DE LICENCIAS -->
+  <section id="licenses">
+    <h2 class="section-title">Licencias & Precios</h2>
+    <div class="licenses-grid">
+      <div class="lic-card">
+        <h3>BASIC LEASE</h3>
+        <div class="lic-price">$39</div>
+        <p style="color: var(--muted); font-size: 0.8rem;">MP3 Untagged<br>50,000 Streams</p>
+      </div>
+      <div class="lic-card">
+        <h3>PREMIUM LEASE</h3>
+        <div class="lic-price">$79</div>
+        <p style="color: var(--muted); font-size: 0.8rem;">WAV + MP3 Untagged<br>250,000 Streams</p>
+      </div>
+      <div class="lic-card">
+        <h3>UNLIMITED</h3>
+        <div class="lic-price">$149</div>
+        <p style="color: var(--muted); font-size: 0.8rem;">WAV + Stems Separados<br>Streams Ilimitados</p>
+      </div>
+      <div class="lic-card">
+        <h3>EXCLUSIVE</h3>
+        <div class="lic-price">$500+</div>
+        <p style="color: var(--muted); font-size: 0.8rem;">Derechos Totales<br>Contrato Completo</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN DE MEDIA / YOUTUBE -->
+  <section id="media">
+    <h2 class="section-title">Galería & YouTube</h2>
+    <div class="media-grid" id="media-container">
+      <p style="grid-column: 1/-1; text-align: center; color: var(--muted);">Cargando contenido multimedia...</p>
+    </div>
+  </section>
+
+  <!-- SECCIÓN DE CONTACTO -->
+  <section id="contact" style="text-align: center;">
+    <h2 class="section-title">Contacto & Proyectos</h2>
+    <p style="color: var(--muted); max-width: 600px; margin: 0 auto 2rem;">¿Tienes un proyecto de producción, mezcla o mastering? hablemos directo.</p>
+    <a href="mailto:kuroza@outlook.es" style="display: inline-block; padding: 1rem 2.5rem; background: #fff; color: #000; text-decoration: none; font-weight: 800; border-radius: 4px; letter-spacing: 2px;">ENVIAR MENSAJE</a>
+  </section>
+
+  <!-- FOOTER CON BOTÓN OCULTO -->
   <footer>
-    <p>© 2026 KUROZA AUDIO. ALL RIGHTS RESERVED. <span class="secret-dot" id="secret-dot">•</span></p>
+    <p>© 2026 KUROZA AUDIO. ALL RIGHTS RESERVED. POWERED BY <span class="flora-secret" id="secret-flora">FLORA JANUS TAPES</span></p>
   </footer>
 
-  <!-- MODAL DE LOGIN SECRETO -->
+  <!-- MODAL 1: LOGIN SECRETO (Se activa con clic en FLORA) -->
   <div id="login-modal" class="modal-overlay">
     <div class="modal-card">
       <span class="close-btn" id="close-login">&times;</span>
-      <h2 style="font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem;">Acceso Privado</h2>
-      <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Ingresa para gestionar tu catálogo.</p>
-      
+      <h2 style="font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem;">Acceso Privado Architect</h2>
+      <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Ingresa tus credenciales para administrar el sitio.</p>
       <form id="login-form">
         <div class="form-group">
           <label>Email Admin</label>
@@ -195,36 +206,59 @@
     </div>
   </div>
 
-  <!-- MODAL DE SUBIR BEAT (SOLO ACCESIBLE CON TU SESIÓN) -->
+  <!-- MODAL 2: PANEL DE SUBIDA CON PESTAÑAS Y " + " -->
   <div id="upload-modal" class="modal-overlay">
     <div class="modal-card">
       <span class="close-btn" id="close-upload">&times;</span>
-      <h2 style="font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem;">Upload New Beat</h2>
-      <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Publicación automática en tu catálogo público.</p>
+      <h2 style="font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem;">+ Cargar Contenido</h2>
       
-      <form id="upload-form">
+      <!-- Pestañas para elegir qué subir -->
+      <div class="tab-menu">
+        <button class="tab-btn active" id="tab-beat-btn">Subir Beat</button>
+        <button class="tab-btn" id="tab-media-btn">Imagen / YouTube</button>
+      </div>
+
+      <!-- FORMULARIO 1: SUBIR BEAT -->
+      <form id="form-upload-beat">
         <div class="form-group">
           <label>Título del Beat</label>
-          <input type="text" id="beat-title" placeholder="e.g. SHINOBI" required />
+          <input type="text" id="beat-title" placeholder="ej. SHINOBI" required />
         </div>
         <div class="form-group">
-          <label>Género / Estilo</label>
-          <input type="text" id="beat-genre" placeholder="e.g. Dancehall / Urban" required />
+          <label>Género / BPM & Key</label>
+          <input type="text" id="beat-info" placeholder="ej. Dancehall | 140 BPM - F# Minor" required />
         </div>
         <div class="form-group">
-          <label>BPM & Key</label>
-          <input type="text" id="beat-bpmkey" placeholder="e.g. 140 BPM - F# Minor" required />
-        </div>
-        <div class="form-group">
-          <label>URL Imagen de Portada</label>
+          <label>URL Imagen Portada</label>
           <input type="url" id="beat-cover" placeholder="https://..." required />
         </div>
         <div class="form-group">
-          <label>Link Audio MP3 o YouTube Video ID</label>
-          <input type="text" id="beat-audio" placeholder="Link MP3 o ID YouTube (ej. dQw4w9WgXcQ)" required />
+          <label>Link MP3 o ID Video YouTube</label>
+          <input type="text" id="beat-audio" placeholder="Link de MP3 o ID YouTube (ej. dQw4w9WgXcQ)" required />
         </div>
-        <button type="submit" class="btn-full">Publicar Beat Now</button>
+        <button type="submit" class="btn-full">Publicar Beat</button>
       </form>
+
+      <!-- FORMULARIO 2: SUBIR GALERÍA / YOUTUBE -->
+      <form id="form-upload-media" style="display: none;">
+        <div class="form-group">
+          <label>Título / Descripción</label>
+          <input type="text" id="media-title" placeholder="ej. Sesión de Grabación / Nuevo Video" required />
+        </div>
+        <div class="form-group">
+          <label>Tipo de Contenido</label>
+          <select id="media-type">
+            <option value="youtube">Video de YouTube (ID)</option>
+            <option value="image">Foto para Galería (URL)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>URL Imagen o ID de YouTube</label>
+          <input type="text" id="media-url" placeholder="ej. dQw4w9WgXcQ o https://imagen.jpg" required />
+        </div>
+        <button type="submit" class="btn-full">Publicar a Galería</button>
+      </form>
+
     </div>
   </div>
 
@@ -247,101 +281,123 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
 
-    // DOM Elements
-    const secretTrigger = document.getElementById('secret-trigger');
-    const secretDot = document.getElementById('secret-dot');
+    // Elementos DOM
+    const secretFlora = document.getElementById('secret-flora');
     const loginModal = document.getElementById('login-modal');
     const uploadModal = document.getElementById('upload-modal');
-    const adminToolbar = document.getElementById('admin-toolbar');
+    const adminBar = document.getElementById('admin-bar');
     const openUploadBtn = document.getElementById('open-upload-btn');
     const logoutBtn = document.getElementById('logout-btn');
     const beatsContainer = document.getElementById('beats-container');
+    const mediaContainer = document.getElementById('media-container');
 
-    // MÉTODOS SECRETOS PARA ABRIR LOGIN (Haz clic en KUROZA o en el punto del footer)
-    secretTrigger.addEventListener('click', () => { if(!auth.currentUser) loginModal.style.display = 'flex'; });
-    secretDot.addEventListener('click', () => { if(!auth.currentUser) loginModal.style.display = 'flex'; });
-
-    // CERRAR MODALES
+    // Clic Secreto en FLORA
+    secretFlora.addEventListener('click', () => { if(!auth.currentUser) loginModal.style.display = 'flex'; });
     document.getElementById('close-login').addEventListener('click', () => loginModal.style.display = 'none');
     document.getElementById('close-upload').addEventListener('click', () => uploadModal.style.display = 'none');
     openUploadBtn.addEventListener('click', () => uploadModal.style.display = 'flex');
 
-    // DETECTAR SI ERES TÚ (SESIÓN ACTIVA)
+    // Cambiar Pestañas en el Panel Creador
+    const tabBeatBtn = document.getElementById('tab-beat-btn');
+    const tabMediaBtn = document.getElementById('tab-media-btn');
+    const formBeat = document.getElementById('form-upload-beat');
+    const formMedia = document.getElementById('form-upload-media');
+
+    tabBeatBtn.addEventListener('click', () => {
+      tabBeatBtn.classList.add('active'); tabMediaBtn.classList.remove('active');
+      formBeat.style.display = 'block'; formMedia.style.display = 'none';
+    });
+    tabMediaBtn.addEventListener('click', () => {
+      tabMediaBtn.classList.add('active'); tabBeatBtn.classList.remove('active');
+      formMedia.style.display = 'block'; formBeat.style.display = 'none';
+    });
+
+    // Detectar Autenticación Secreta
     auth.onAuthStateChanged((user) => {
       if (user) {
-        // SI INICIASTE SESIÓN: Muestra el botón de publicar arriba
-        adminToolbar.style.display = 'flex';
+        adminBar.style.display = 'flex';
         loginModal.style.display = 'none';
       } else {
-        // PARA EL PÚBLICO: Oculta todo el panel de administración
-        adminToolbar.style.display = 'none';
+        adminBar.style.display = 'none';
       }
     });
 
-    // INICIAR SESIÓN
+    // Iniciar Sesión
     document.getElementById('login-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      const email = document.getElementById('login-email').value;
-      const pass = document.getElementById('login-pass').value;
-
-      auth.signInWithEmailAndPassword(email, pass)
-        .then(() => {
-          loginModal.style.display = 'none';
-          alert("¡Acceso concedido, Maestro!");
-        })
-        .catch(err => alert("Acceso denegado: " + err.message));
+      auth.signInWithEmailAndPassword(
+        document.getElementById('login-email').value,
+        document.getElementById('login-pass').value
+      ).then(() => loginModal.style.display = 'none')
+      .catch(err => alert("Acceso denegado: " + err.message));
     });
 
-    // CERRAR SESIÓN
-    logoutBtn.addEventListener('click', () => {
-      auth.signOut();
-      alert("Sesión cerrada.");
-    });
+    logoutBtn.addEventListener('click', () => auth.signOut());
 
-    // SUBIR BEAT A FIRESTORE
-    document.getElementById('upload-form').addEventListener('submit', (e) => {
+    // Guardar Beat en Firestore
+    formBeat.addEventListener('submit', (e) => {
       e.preventDefault();
-
-      const newBeat = {
+      db.collection('beats').add({
         title: document.getElementById('beat-title').value,
-        genre: document.getElementById('beat-genre').value,
-        bpmkey: document.getElementById('beat-bpmkey').value,
+        info: document.getElementById('beat-info').value,
         cover: document.getElementById('beat-cover').value,
         audio: document.getElementById('beat-audio').value,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      };
-
-      db.collection('beats').add(newBeat).then(() => {
-        alert("¡Beat publicado exitosamente!");
-        document.getElementById('upload-form').reset();
-        uploadModal.style.display = 'none';
-      }).catch(err => alert("Error al subir: " + err.message));
+      }).then(() => {
+        alert("¡Beat subido!");
+        formBeat.reset(); uploadModal.style.display = 'none';
+      });
     });
 
-    // CARGAR BEATS AUTOMÁTICAMENTE PARA TODO EL MUNDO
-    db.collection('beats').orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
-      beatsContainer.innerHTML = '';
-      if (snapshot.empty) {
-        beatsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--muted);">Próximamente nuevos lanzamientos.</p>';
-        return;
-      }
+    // Guardar Media / YouTube en Firestore
+    formMedia.addEventListener('submit', (e) => {
+      e.preventDefault();
+      db.collection('media').add({
+        title: document.getElementById('media-title').value,
+        type: document.getElementById('media-type').value,
+        url: document.getElementById('media-url').value,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        alert("¡Contenido multimedia publicado!");
+        formMedia.reset(); uploadModal.style.display = 'none';
+      });
+    });
 
-      snapshot.forEach(doc => {
-        const beat = doc.data();
-        const card = document.createElement('div');
-        card.style.cssText = "border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; background: var(--surface); text-align: center;";
-        card.innerHTML = `
-          <img src="${beat.cover}" alt="${beat.title}" style="width: 100%; height: 220px; object-fit: cover; border-radius: 6px; margin-bottom: 1rem;">
-          <h3 style="font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;">${beat.title}</h3>
-          <p style="font-size: 0.8rem; color: var(--muted); font-weight: 700; margin: 0.4rem 0 1rem;">${beat.genre} | ${beat.bpmkey}</p>
-          <div>
-            ${beat.audio.includes('http') 
-              ? `<audio controls src="${beat.audio}" style="width: 100%;"></audio>`
-              : `<iframe width="100%" height="160" src="https://www.youtube.com/embed/${beat.audio}" frameborder="0" allowfullscreen style="border-radius:6px;"></iframe>`
+    // Cargar Beats en Tiempo Real
+    db.collection('beats').orderBy('createdAt', 'desc').onSnapshot(snap => {
+      beatsContainer.innerHTML = '';
+      if(snap.empty) { beatsContainer.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:var(--muted);">Sin lanzamientos de beats aún.</p>'; return; }
+      snap.forEach(doc => {
+        const b = doc.data();
+        beatsContainer.innerHTML += `
+          <div class="beat-card">
+            <img src="${b.cover}" alt="${b.title}">
+            <h3 style="text-transform:uppercase; font-size:1.1rem;">${b.title}</h3>
+            <p style="color:var(--muted); font-size:0.8rem; font-weight:700; margin:0.4rem 0 1rem;">${b.info}</p>
+            ${b.audio.includes('http') 
+              ? `<audio controls src="${b.audio}" style="width:100%;"></audio>` 
+              : `<iframe width="100%" height="150" src="https://www.youtube.com/embed/${b.audio}" frameborder="0" allowfullscreen style="border-radius:6px;"></iframe>`
             }
           </div>
         `;
-        beatsContainer.appendChild(card);
+      });
+    });
+
+    // Cargar Media / YouTube en Tiempo Real
+    db.collection('media').orderBy('createdAt', 'desc').onSnapshot(snap => {
+      mediaContainer.innerHTML = '';
+      if(snap.empty) { mediaContainer.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:var(--muted);">Sin videos ni fotos agregadas.</p>'; return; }
+      snap.forEach(doc => {
+        const m = doc.data();
+        mediaContainer.innerHTML += `
+          <div class="media-card" style="padding:1rem; text-align:center;">
+            ${m.type === 'youtube' 
+              ? `<iframe width="100%" height="200" src="https://www.youtube.com/embed/${m.url}" frameborder="0" allowfullscreen style="border-radius:6px;"></iframe>`
+              : `<img src="${m.url}" style="width:100%; height:200px; object-fit:cover; border-radius:6px;">`
+            }
+            <h4 style="margin-top:0.8rem; font-size:0.9rem; text-transform:uppercase;">${m.title}</h4>
+          </div>
+        `;
       });
     });
   </script>
