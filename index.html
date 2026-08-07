@@ -8,6 +8,73 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  
+  <style>
+    /* Ajustes adicionales para Hero Buttons y Contact Links */
+    .hero-buttons {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .btn-hero-primary {
+      padding: 1rem 2rem;
+      background: #ffffff;
+      color: #000000;
+      font-weight: 800;
+      text-decoration: none;
+      border-radius: 4px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+    }
+    .btn-hero-primary:hover {
+      background: #e4e4e7;
+      transform: translateY(-2px);
+    }
+    .btn-hero-secondary {
+      padding: 1rem 2rem;
+      background: transparent;
+      color: #ffffff;
+      border: 1px solid #ffffff;
+      font-weight: 800;
+      text-decoration: none;
+      border-radius: 4px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+    }
+    .btn-hero-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Redes de Contacto */
+    .contact-socials {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .social-link {
+      color: #000000;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      padding: 0.6rem 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: 0.3s;
+    }
+    .social-link:hover {
+      background: var(--surface);
+    }
+  </style>
 </head>
 <body>
 
@@ -16,6 +83,7 @@
     <a href="#" class="logo">KUROZA</a>
     <nav>
       <a href="#beats">Beats</a>
+      <a href="#portfolio">Mixing & Master</a>
       <a href="#services">Services</a>
       <a href="#licenses">Licensing</a>
       <a href="#media">Media / YT</a>
@@ -27,11 +95,19 @@
     </div>
   </header>
 
-  <!-- HERO SECTION WITH TEMPLE IMAGE -->
+  <!-- HERO SECTION CON IMPACTO REFINADO & BOTONES DE ACCIÓN -->
   <div class="hero">
     <div class="hero-content">
       <h1>KUROZA</h1>
-      <p>CHINO THE ARCHITECT — MUSIC & AUDIO PRODUCTION</p>
+      <p style="letter-spacing: 3px; font-weight: 800; color: #ffffff; margin-bottom: 0.3rem;">MUSIC PRODUCTION &bull; MIXING &bull; MASTERING</p>
+      <p style="font-size: 0.85rem; color: #a1a1aa; letter-spacing: 2px; margin-bottom: 0.8rem;">BY CHINO THE ARCHITECT</p>
+      <p style="font-style: italic; font-weight: 300; font-size: 0.9rem; color: #e4e4e7; letter-spacing: 3px; text-transform: none;">"Crafting Timeless Sound"</p>
+      
+      <!-- BOTONES PRINCIPALES -->
+      <div class="hero-buttons">
+        <a href="#beats" class="btn-hero-primary">Explore Beats</a>
+        <a href="#contact" class="btn-hero-secondary">Book Mixing & Mastering</a>
+      </div>
     </div>
   </div>
 
@@ -40,6 +116,17 @@
     <h2 class="section-title">Official Beat Catalogue</h2>
     <div class="beats-grid" id="beats-container">
       <p class="loading-text">Loading official catalogue...</p>
+    </div>
+  </section>
+
+  <!-- MIXING & MASTERING PORTFOLIO -->
+  <section id="portfolio" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <h2 class="section-title">Mixed & Mastered Works</h2>
+    <p style="text-align: center; color: var(--muted); margin-bottom: 3rem; font-size: 0.9rem;">
+      Official credits, engineering, and audio processing by Chino The Architect.
+    </p>
+    <div class="beats-grid" id="portfolio-container">
+      <p class="loading-text">Loading engineered tracks...</p>
     </div>
   </section>
 
@@ -62,7 +149,7 @@
     </div>
   </section>
 
-  <!-- LICENSING SECTION -->
+  <!-- LICENSING SECTION CON PRECIOS REVISADOS -->
   <section id="licenses">
     <h2 class="section-title">Licensing & Pricing</h2>
     <div class="licenses-grid">
@@ -83,7 +170,7 @@
       </div>
       <div class="lic-card">
         <h3>EXCLUSIVE</h3>
-        <div class="lic-price">$500+</div>
+        <div class="lic-price" style="font-size: 1.5rem; margin: 1.3rem 0;">Inquire / $800+</div>
         <p>Full Ownership Rights<br>Exclusive Contract</p>
       </div>
     </div>
@@ -97,19 +184,27 @@
     </div>
   </section>
 
-  <!-- CONTACT SECTION -->
+  <!-- CONTACT SECTION CON REDES SOCIALES MULTICANAL -->
   <section id="contact" style="text-align: center;">
     <h2 class="section-title">Contact & Custom Work</h2>
     <p class="contact-desc">Have an upcoming production, mixing, or mastering project? Let's work directly.</p>
-    <a href="mailto:kuroza@outlook.es" class="btn-contact">SEND MESSAGE</a>
+    
+    <a href="mailto:kuroza@outlook.es" class="btn-contact">SEND EMAIL MESSAGE</a>
+
+    <!-- REDES SOCIALES DIRECTAS -->
+    <div class="contact-socials">
+      <a href="https://wa.me/" target="_blank" class="social-link">💬 WhatsApp Direct</a>
+      <a href="https://instagram.com/" target="_blank" class="social-link">📸 Instagram</a>
+      <a href="https://youtube.com/" target="_blank" class="social-link">▶️ YouTube Channel</a>
+    </div>
   </section>
 
-  <!-- FOOTER WITH SECRET FLORA ACCESS -->
+  <!-- FOOTER LIMPIO Y RESPETANDO MARCA -->
   <footer>
-    <p>© 2026 KUROZA AUDIO. ALL RIGHTS RESERVED. POWERED BY <span class="flora-secret" id="secret-flora">FLORA JANUS TAPES</span></p>
+    <p>© 2026 KUROZA. ALL RIGHTS RESERVED. POWERED BY <span class="flora-secret" id="secret-flora">FLORA JANUS TAPES</span></p>
   </footer>
 
-  <!-- MODAL 1: SECRET LOGIN (CLICK ON FLORA) -->
+  <!-- MODAL 1: SECRET LOGIN -->
   <div id="login-modal" class="modal-overlay">
     <div class="modal-card">
       <span class="close-btn" id="close-login">&times;</span>
@@ -129,19 +224,20 @@
     </div>
   </div>
 
-  <!-- MODAL 2: CREATOR PANEL WITH TABS AND PLUS (+) -->
+  <!-- MODAL 2: CREATOR PANEL -->
   <div id="upload-modal" class="modal-overlay">
-    <div class="modal-card">
+    <div class="modal-card" style="max-height: 90vh; overflow-y: auto;">
       <span class="close-btn" id="close-upload">&times;</span>
-      <h2 style="margin-bottom: 1rem;">+ Upload Content</h2>
+      <h2 style="margin-bottom: 1rem;">+ Creator Panel</h2>
       
       <!-- Tabs -->
       <div class="tab-menu">
         <button class="tab-btn active" id="tab-beat-btn">Upload Beat</button>
-        <button class="tab-btn" id="tab-media-btn">Gallery / YouTube</button>
+        <button class="tab-btn" id="tab-mix-btn">Mixing Portfolio</button>
+        <button class="tab-btn" id="tab-media-btn">Gallery / YT</button>
       </div>
 
-      <!-- FORM 1: UPLOAD BEAT -->
+      <!-- FORM 1: SUBIR BEAT COMPLETO -->
       <form id="form-upload-beat">
         <div class="form-group">
           <label>Beat Title</label>
@@ -152,17 +248,47 @@
           <input type="text" id="beat-info" placeholder="e.g. Dancehall | 140 BPM - F# Minor" required />
         </div>
         <div class="form-group">
-          <label>Cover Art Image URL</label>
-          <input type="url" id="beat-cover" placeholder="https://..." required />
+          <label>Cover Art (Image File from PC)</label>
+          <input type="file" id="beat-cover-file" accept="image/*" required />
         </div>
         <div class="form-group">
-          <label>MP3 Link or YouTube Video ID</label>
-          <input type="text" id="beat-audio" placeholder="MP3 Link or YouTube ID (e.g. dQw4w9WgXcQ)" required />
+          <label>Beat Audio File (MP3, WAV, FLAC from PC) or YT ID</label>
+          <input type="file" id="beat-audio-file" accept="audio/*" />
+          <input type="text" id="beat-yt-id" placeholder="Or paste YouTube Video ID / Link" style="margin-top: 0.5rem;" />
         </div>
-        <button type="submit" class="btn-full">Publish Beat</button>
+        <div class="form-group">
+          <label>Stems Package Folder (ZIP / RAR from PC - Optional)</label>
+          <input type="file" id="beat-stems-file" accept=".zip,.rar" />
+        </div>
+        <div class="form-group">
+          <label>License PDF Agreement (Optional)</label>
+          <input type="file" id="beat-license-file" accept=".pdf" />
+        </div>
+        <div class="form-group">
+          <label>Available Licenses & Default Price</label>
+          <input type="text" id="beat-pricing" placeholder="e.g. Basic $39 | Premium $79 | Unlimited $149" />
+        </div>
+        <button type="submit" class="btn-full" id="btn-pub-beat">Publish Beat</button>
       </form>
 
-      <!-- FORM 2: UPLOAD GALLERY / YOUTUBE -->
+      <!-- FORM 2: SUBIR MEZCLA & MASTERING -->
+      <form id="form-upload-mix" style="display: none;">
+        <div class="form-group">
+          <label>Project / Song Title & Artist</label>
+          <input type="text" id="mix-title" placeholder="e.g. Cicatrices - Robert MP (Mixed & Mastered)" required />
+        </div>
+        <div class="form-group">
+          <label>Cover Art / Artwork (Image from PC)</label>
+          <input type="file" id="mix-cover-file" accept="image/*" required />
+        </div>
+        <div class="form-group">
+          <label>Audio Master File (WAV, MP3, FLAC from PC)</label>
+          <input type="file" id="mix-audio-file" accept="audio/*" required />
+        </div>
+        <button type="submit" class="btn-full" id="btn-pub-mix">Publish Work</button>
+      </form>
+
+      <!-- FORM 3: GALERÍA / YOUTUBE -->
       <form id="form-upload-media" style="display: none;">
         <div class="form-group">
           <label>Title / Description</label>
@@ -171,15 +297,19 @@
         <div class="form-group">
           <label>Content Type</label>
           <select id="media-type">
-            <option value="youtube">YouTube Video (ID)</option>
-            <option value="image">Gallery Photo (URL)</option>
+            <option value="image">Gallery Photo (Upload from PC)</option>
+            <option value="youtube">YouTube Video (Link / ID)</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>Image URL or YouTube Video ID</label>
-          <input type="text" id="media-url" placeholder="e.g. dQw4w9WgXcQ or https://image.jpg" required />
+        <div class="form-group" id="media-file-group">
+          <label>Select Photo from PC</label>
+          <input type="file" id="media-img-file" accept="image/*" />
         </div>
-        <button type="submit" class="btn-full">Publish to Gallery</button>
+        <div class="form-group" id="media-yt-group" style="display: none;">
+          <label>YouTube Link or Video ID</label>
+          <input type="text" id="media-yt-input" placeholder="e.g. dQw4w9WgXcQ" />
+        </div>
+        <button type="submit" class="btn-full" id="btn-pub-media">Publish to Gallery</button>
       </form>
 
     </div>
@@ -189,6 +319,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
 
   <script>
     const firebaseConfig = {
@@ -203,6 +334,7 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
+    const storage = firebase.storage();
 
     // DOM Elements
     const secretFlora = document.getElementById('secret-flora');
@@ -212,81 +344,183 @@
     const openUploadBtn = document.getElementById('open-upload-btn');
     const logoutBtn = document.getElementById('logout-btn');
     const beatsContainer = document.getElementById('beats-container');
+    const portfolioContainer = document.getElementById('portfolio-container');
     const mediaContainer = document.getElementById('media-container');
 
-    // Secret Flora Click Event
+    // YouTube Parser
+    function cleanYouTubeID(urlOrId) {
+      if (!urlOrId) return '';
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const match = urlOrId.match(regExp);
+      return (match && match[2].length === 11) ? match[2] : urlOrId.trim();
+    }
+
+    // Storage Upload Helper
+    async function uploadFile(file, path) {
+      if (!file) return '';
+      const ref = storage.ref(`${path}/${Date.now()}_${file.name}`);
+      const snap = await ref.put(file);
+      return await snap.ref.getDownloadURL();
+    }
+
+    // Modals
     secretFlora.addEventListener('click', () => { if(!auth.currentUser) loginModal.style.display = 'flex'; });
     document.getElementById('close-login').addEventListener('click', () => loginModal.style.display = 'none');
     document.getElementById('close-upload').addEventListener('click', () => uploadModal.style.display = 'none');
     openUploadBtn.addEventListener('click', () => uploadModal.style.display = 'flex');
 
-    // Switch Tabs in Creator Panel
+    // Tabs
     const tabBeatBtn = document.getElementById('tab-beat-btn');
+    const tabMixBtn = document.getElementById('tab-mix-btn');
     const tabMediaBtn = document.getElementById('tab-media-btn');
+
     const formBeat = document.getElementById('form-upload-beat');
+    const formMix = document.getElementById('form-upload-mix');
     const formMedia = document.getElementById('form-upload-media');
 
     tabBeatBtn.addEventListener('click', () => {
-      tabBeatBtn.classList.add('active'); tabMediaBtn.classList.remove('active');
-      formBeat.style.display = 'block'; formMedia.style.display = 'none';
+      tabBeatBtn.classList.add('active'); tabMixBtn.classList.remove('active'); tabMediaBtn.classList.remove('active');
+      formBeat.style.display = 'block'; formMix.style.display = 'none'; formMedia.style.display = 'none';
+    });
+    tabMixBtn.addEventListener('click', () => {
+      tabMixBtn.classList.add('active'); tabBeatBtn.classList.remove('active'); tabMediaBtn.classList.remove('active');
+      formMix.style.display = 'block'; formBeat.style.display = 'none'; formMedia.style.display = 'none';
     });
     tabMediaBtn.addEventListener('click', () => {
-      tabMediaBtn.classList.add('active'); tabBeatBtn.classList.remove('active');
-      formMedia.style.display = 'block'; formBeat.style.display = 'none';
+      tabMediaBtn.classList.add('active'); tabBeatBtn.classList.remove('active'); tabMixBtn.classList.remove('active');
+      formMedia.style.display = 'block'; formBeat.style.display = 'none'; formMix.style.display = 'none';
     });
 
-    // Detect Secret Auth
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        adminBar.style.display = 'flex';
-        loginModal.style.display = 'none';
+    // Toggle Input
+    document.getElementById('media-type').addEventListener('change', (e) => {
+      if(e.target.value === 'image') {
+        document.getElementById('media-file-group').style.display = 'block';
+        document.getElementById('media-yt-group').style.display = 'none';
       } else {
-        adminBar.style.display = 'none';
+        document.getElementById('media-file-group').style.display = 'none';
+        document.getElementById('media-yt-group').style.display = 'block';
       }
     });
 
-    // Login Event
+    // Auth
+    auth.onAuthStateChanged((user) => {
+      adminBar.style.display = user ? 'flex' : 'none';
+      if(user) loginModal.style.display = 'none';
+    });
+
     document.getElementById('login-form').addEventListener('submit', (e) => {
       e.preventDefault();
       auth.signInWithEmailAndPassword(
         document.getElementById('login-email').value,
         document.getElementById('login-pass').value
-      ).then(() => loginModal.style.display = 'none')
-      .catch(err => alert("Access Denied: " + err.message));
+      ).catch(err => alert("Access Denied: " + err.message));
     });
 
     logoutBtn.addEventListener('click', () => auth.signOut());
 
-    // Save Beat to Firestore
-    formBeat.addEventListener('submit', (e) => {
+    // 1. Beat Upload
+    formBeat.addEventListener('submit', async (e) => {
       e.preventDefault();
-      db.collection('beats').add({
-        title: document.getElementById('beat-title').value,
-        info: document.getElementById('beat-info').value,
-        cover: document.getElementById('beat-cover').value,
-        audio: document.getElementById('beat-audio').value,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      }).then(() => {
+      const btn = document.getElementById('btn-pub-beat');
+      btn.textContent = "Uploading files..."; btn.disabled = true;
+
+      try {
+        const coverFile = document.getElementById('beat-cover-file').files[0];
+        const audioFile = document.getElementById('beat-audio-file').files[0];
+        const stemsFile = document.getElementById('beat-stems-file').files[0];
+        const licenseFile = document.getElementById('beat-license-file').files[0];
+        const ytInput = document.getElementById('beat-yt-id').value;
+
+        const coverUrl = await uploadFile(coverFile, 'covers');
+        let audioUrl = await uploadFile(audioFile, 'audio');
+        if (!audioUrl && ytInput) audioUrl = cleanYouTubeID(ytInput);
+
+        const stemsUrl = await uploadFile(stemsFile, 'stems');
+        const licenseUrl = await uploadFile(licenseFile, 'licenses');
+
+        await db.collection('beats').add({
+          title: document.getElementById('beat-title').value,
+          info: document.getElementById('beat-info').value,
+          pricing: document.getElementById('beat-pricing').value || 'Basic $39 | Premium $79',
+          cover: coverUrl,
+          audio: audioUrl,
+          stems: stemsUrl,
+          license: licenseUrl,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
         alert("Beat Published Successfully!");
         formBeat.reset(); uploadModal.style.display = 'none';
-      });
+      } catch (err) {
+        alert("Upload Error: " + err.message);
+      } finally {
+        btn.textContent = "Publish Beat"; btn.disabled = false;
+      }
     });
 
-    // Save Media / YouTube to Firestore
-    formMedia.addEventListener('submit', (e) => {
+    // 2. Mix Portfolio Upload
+    formMix.addEventListener('submit', async (e) => {
       e.preventDefault();
-      db.collection('media').add({
-        title: document.getElementById('media-title').value,
-        type: document.getElementById('media-type').value,
-        url: document.getElementById('media-url').value,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      }).then(() => {
-        alert("Media Content Published Successfully!");
-        formMedia.reset(); uploadModal.style.display = 'none';
-      });
+      const btn = document.getElementById('btn-pub-mix');
+      btn.textContent = "Uploading..."; btn.disabled = true;
+
+      try {
+        const coverFile = document.getElementById('mix-cover-file').files[0];
+        const audioFile = document.getElementById('mix-audio-file').files[0];
+
+        const coverUrl = await uploadFile(coverFile, 'mixing_covers');
+        const audioUrl = await uploadFile(audioFile, 'mixing_audio');
+
+        await db.collection('mixing_portfolio').add({
+          title: document.getElementById('mix-title').value,
+          cover: coverUrl,
+          audio: audioUrl,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        alert("Mixing Credit Published!");
+        formMix.reset(); uploadModal.style.display = 'none';
+      } catch (err) {
+        alert("Upload Error: " + err.message);
+      } finally {
+        btn.textContent = "Publish Work"; btn.disabled = false;
+      }
     });
 
-    // Load Real-time Beats
+    // 3. Media Upload
+    formMedia.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('btn-pub-media');
+      btn.textContent = "Uploading..."; btn.disabled = true;
+
+      try {
+        const type = document.getElementById('media-type').value;
+        let mediaUrl = '';
+
+        if (type === 'image') {
+          const imgFile = document.getElementById('media-img-file').files[0];
+          mediaUrl = await uploadFile(imgFile, 'gallery');
+        } else {
+          mediaUrl = cleanYouTubeID(document.getElementById('media-yt-input').value);
+        }
+
+        await db.collection('media').add({
+          title: document.getElementById('media-title').value,
+          type: type,
+          url: mediaUrl,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        alert("Media Published!");
+        formMedia.reset(); uploadModal.style.display = 'none';
+      } catch (err) {
+        alert("Upload Error: " + err.message);
+      } finally {
+        btn.textContent = "Publish to Gallery"; btn.disabled = false;
+      }
+    });
+
+    // Load Realtime Beats
     db.collection('beats').orderBy('createdAt', 'desc').onSnapshot(snap => {
       beatsContainer.innerHTML = '';
       if(snap.empty) { beatsContainer.innerHTML = '<p class="loading-text">No beat releases yet.</p>'; return; }
@@ -296,17 +530,35 @@
           <div class="beat-card">
             <img src="${b.cover}" alt="${b.title}">
             <h3 style="text-transform:uppercase; font-size:1.1rem; color:#000;">${b.title}</h3>
-            <p style="color:var(--muted); font-size:0.8rem; font-weight:700; margin:0.4rem 0 1rem;">${b.info}</p>
-            ${b.audio.includes('http') 
+            <p style="color:var(--muted); font-size:0.8rem; font-weight:700; margin:0.2rem 0;">${b.info}</p>
+            <p style="font-size:0.75rem; font-weight:800; color:#000; margin-bottom:0.8rem;">${b.pricing || ''}</p>
+            ${b.audio.startsWith('http')
               ? `<audio controls src="${b.audio}" style="width:100%;"></audio>` 
-              : `<iframe width="100%" height="150" src="https://www.youtube.com/embed/${b.audio}" frameborder="0" allowfullscreen style="border-radius:6px;"></iframe>`
+              : `<iframe width="100%" height="150" src="https://www.youtube.com/embed/${cleanYouTubeID(b.audio)}" frameborder="0" allowfullscreen style="border-radius:6px;"></iframe>`
             }
+            ${b.license ? `<a href="${b.license}" target="_blank" style="display:inline-block; margin-top:0.5rem; font-size:0.7rem; color:var(--muted); font-weight:700;">📄 View License Agreement</a>` : ''}
           </div>
         `;
       });
     });
 
-    // Load Real-time Media / YouTube
+    // Load Realtime Mixing
+    db.collection('mixing_portfolio').orderBy('createdAt', 'desc').onSnapshot(snap => {
+      portfolioContainer.innerHTML = '';
+      if(snap.empty) { portfolioContainer.innerHTML = '<p class="loading-text">No mixed/mastered credits uploaded yet.</p>'; return; }
+      snap.forEach(doc => {
+        const m = doc.data();
+        portfolioContainer.innerHTML += `
+          <div class="beat-card">
+            <img src="${m.cover}" alt="${m.title}">
+            <h3 style="text-transform:uppercase; font-size:1rem; color:#000; margin-bottom:0.6rem;">${m.title}</h3>
+            <audio controls src="${m.audio}" style="width:100%;"></audio>
+          </div>
+        `;
+      });
+    });
+
+    // Load Realtime Gallery
     db.collection('media').orderBy('createdAt', 'desc').onSnapshot(snap => {
       mediaContainer.innerHTML = '';
       if(snap.empty) { mediaContainer.innerHTML = '<p class="loading-text">No videos or photos added yet.</p>'; return; }
@@ -315,8 +567,8 @@
         mediaContainer.innerHTML += `
           <div class="media-card" style="padding:1rem; text-align:center;">
             ${m.type === 'youtube' 
-              ? `<iframe width="100%" height="200" src="https://www.youtube.com/embed/${m.url}" frameborder="0" allowfullscreen style="border-radius:6px;"></iframe>`
-              : `<img src="${m.url}" style="width:100%; height:200px; object-fit:cover; border-radius:6px;">`
+              ? `<iframe width="100%" height="200" src="https://www.youtube.com/embed/${cleanYouTubeID(m.url)}" frameborder="0" allowfullscreen style="border-radius:6px;"></iframe>`
+              : `<img src="${m.url}" style="width:100%; height:220px; object-fit:cover; border-radius:6px;">`
             }
             <h4 style="margin-top:0.8rem; font-size:0.9rem; text-transform:uppercase; color:#000;">${m.title}</h4>
           </div>
