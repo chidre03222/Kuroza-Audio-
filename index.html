@@ -7,28 +7,68 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
   
   <style>
-    /* Estilos del botón de Admin y Ventanas Modales */
-    .admin-trigger-btn {
-      background: transparent;
-      border: 1px solid var(--border, #e5e7eb);
-      padding: 0.5rem 1rem;
+    :root {
+      --bg: #ffffff;
+      --surface: #f9fafb;
+      --border: #e5e7eb;
+      --accent: #000000;
+      --text: #111827;
+      --muted: #6b7280;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background-color: var(--bg); color: var(--text); }
+
+    /* BARRA SUPERIOR LIMPIA */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand-logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      cursor: pointer; /* Haz clic aquí para activar el acceso secreto */
+      user-select: none;
+    }
+
+    /* EL BOTÓN DE PUBLICAR Y EL ESTADO SOLO SE VEN SI ESTÁS LOGUEADO */
+    #admin-toolbar {
+      display: none; /* Oculto por defecto para el público */
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn-action {
+      background: var(--accent);
+      color: #ffffff;
+      border: none;
+      padding: 0.6rem 1.2rem;
       border-radius: 4px;
       font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 1px;
       cursor: pointer;
       text-transform: uppercase;
-      transition: all 0.3s;
-    }
-    .admin-trigger-btn:hover {
-      background: #000000;
-      color: #ffffff;
     }
 
-    /* Modal emergente */
+    .btn-logout {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.5rem 0.8rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      cursor: pointer;
+    }
+
+    /* MODAL DE AUTENTICACIÓN / CREACIÓN */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -39,140 +79,152 @@
       z-index: 1000;
       padding: 1rem;
     }
+
     .modal-card {
       background: #ffffff;
-      padding: 2rem;
+      padding: 2.5rem;
       border-radius: 8px;
       width: 100%;
       max-width: 480px;
       position: relative;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      color: #111827;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
-    .close-modal {
+
+    .close-btn {
       position: absolute;
       top: 1rem; right: 1rem;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       cursor: pointer;
-      font-weight: bold;
+      color: var(--muted);
     }
-    .admin-form-group {
-      margin-bottom: 1rem;
-    }
-    .admin-form-group label {
+
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label {
       display: block;
       font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
+      letter-spacing: 1px;
       margin-bottom: 0.4rem;
     }
-    .admin-form-group input {
+    .form-group input {
       width: 100%;
-      padding: 0.7rem;
-      border: 1px solid #e5e7eb;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
       border-radius: 4px;
       outline: none;
     }
-    .btn-submit-admin {
+
+    .btn-full {
       width: 100%;
-      padding: 0.8rem;
-      background: #000000;
+      padding: 1rem;
+      background: var(--accent);
       color: #ffffff;
-      font-weight: bold;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      margin-top: 0.5rem;
     }
-    .status-badge {
-      display: inline-block;
-      padding: 0.2rem 0.6rem;
-      font-size: 0.7rem;
-      background: #e5e7eb;
-      border-radius: 12px;
-      margin-left: 0.5rem;
+
+    /* FOOTER DISCRETO */
+    footer {
+      text-align: center;
+      padding: 3rem 1rem 1.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .secret-dot {
+      cursor: pointer;
+      opacity: 0.3;
+      margin-left: 5px;
     }
   </style>
 </head>
 <body>
 
-  <!-- BARRA DE NAVEGACIÓN -->
-  <header style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; border-bottom: 1px solid #e5e7eb;">
-    <div class="logo">
-      <h2 style="font-weight: 800; letter-spacing: 2px;">KUROZA</h2>
+  <!-- HEADER -->
+  <header>
+    <!-- Al hacer clic en el título se abre la contraseña secreta -->
+    <div class="brand-logo" id="secret-trigger">KUROZA</div>
+    
+    <!-- BARRA PRIVADA: SOLO VISIBLE SI INICIASTE SESIÓN -->
+    <div id="admin-toolbar">
+      <button class="btn-action" id="open-upload-btn">+ Publicar Beat</button>
+      <button class="btn-logout" id="logout-btn">Salir</button>
     </div>
-    <nav style="display: flex; align-items: center; gap: 1rem;">
-      <button id="open-admin-btn" class="admin-trigger-btn">🔒 Admin Panel</button>
-      <span id="admin-status" class="status-badge" style="display:none;">Sesión Activa</span>
-    </nav>
   </header>
 
-  <!-- SECCIÓN PRINCIPAL / CATÁLOGO DE BEATS -->
-  <main style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
-    <section class="hero" style="text-align: center; margin-bottom: 3rem;">
-      <h1 style="font-size: 2.5rem; letter-spacing: 3px; text-transform: uppercase;">Official Catalogue</h1>
-      <p style="color: #6b7280;">BEATS & PRODUCTION BY KUROZA</p>
+  <!-- CATÁLOGO PÚBLICO -->
+  <main style="padding: 3rem 1.5rem; max-width: 1200px; margin: 0 auto;">
+    <section style="text-align: center; margin-bottom: 3.5rem;">
+      <h1 style="font-size: 2.2rem; letter-spacing: 4px; text-transform: uppercase;">Official Catalogue</h1>
+      <p style="color: var(--muted); font-size: 0.85rem; letter-spacing: 1px; margin-top: 0.5rem;">BEATS & PRODUCTION BY KUROZA</p>
     </section>
 
-    <!-- AQUÍ SE CARGAN LOS BEATS AUTOMÁTICAMENTE DE FIREBASE -->
     <div id="beats-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;">
-      <p style="text-align: center; grid-column: 1/-1;">Cargando catálogo oficial...</p>
+      <p style="text-align: center; grid-column: 1/-1; color: var(--muted);">Cargando catálogo...</p>
     </div>
   </main>
 
-  <!-- MODAL DE LOGIN / SUBIDA DE BEATS -->
-  <div id="admin-modal" class="modal-overlay">
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 KUROZA AUDIO. ALL RIGHTS RESERVED. <span class="secret-dot" id="secret-dot">•</span></p>
+  </footer>
+
+  <!-- MODAL DE LOGIN SECRETO -->
+  <div id="login-modal" class="modal-overlay">
     <div class="modal-card">
-      <span id="close-modal-btn" class="close-modal">&times;</span>
+      <span class="close-btn" id="close-login">&times;</span>
+      <h2 style="font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem;">Acceso Privado</h2>
+      <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Ingresa para gestionar tu catálogo.</p>
+      
+      <form id="login-form">
+        <div class="form-group">
+          <label>Email Admin</label>
+          <input type="email" id="login-email" placeholder="kuroza@outlook.es" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="login-pass" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="btn-full">Authenticate</button>
+      </form>
+    </div>
+  </div>
 
-      <!-- FORMULARIO 1: LOGIN -->
-      <div id="modal-login-section">
-        <h3 style="margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">Acceso Privado</h3>
-        <p style="font-size: 0.8rem; color: #6b7280; margin-bottom: 1.5rem;">Ingresa tus credenciales para gestionar canciones.</p>
-        <form id="quick-login-form">
-          <div class="admin-form-group">
-            <label>Correo</label>
-            <input type="email" id="modal-email" placeholder="kuroza@outlook.es" required />
-          </div>
-          <div class="admin-form-group">
-            <label>Contraseña</label>
-            <input type="password" id="modal-pass" placeholder="••••••••" required />
-          </div>
-          <button type="submit" class="btn-submit-admin">Iniciar Sesión</button>
-        </form>
-      </div>
-
-      <!-- FORMULARIO 2: AGREGAR NUEVO BEAT (Se activa al iniciar sesión) -->
-      <div id="modal-upload-section" style="display: none;">
-        <h3 style="margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">+ Agregar Nuevo Beat</h3>
-        <p style="font-size: 0.8rem; color: #6b7280; margin-bottom: 1.5rem;">Se publicará automáticamente en la página principal.</p>
-        <form id="quick-upload-form">
-          <div class="admin-form-group">
-            <label>Título del Beat</label>
-            <input type="text" id="beat-title" placeholder="e.g. SHINOBI" required />
-          </div>
-          <div class="admin-form-group">
-            <label>Género / Estilo</label>
-            <input type="text" id="beat-genre" placeholder="e.g. Dancehall / Reggaeton" required />
-          </div>
-          <div class="admin-form-group">
-            <label>BPM & Key</label>
-            <input type="text" id="beat-bpmkey" placeholder="e.g. 140 BPM - F# Minor" required />
-          </div>
-          <div class="admin-form-group">
-            <label>URL Imagen de Portada (Cover Art)</label>
-            <input type="url" id="beat-cover-url" placeholder="https://..." required />
-          </div>
-          <div class="admin-form-group">
-            <label>Link de Audio MP3 o YouTube ID</label>
-            <input type="text" id="beat-audio-url" placeholder="Link MP3 o ID de YouTube (dQw4w9WgXcQ)" required />
-          </div>
-          <button type="submit" class="btn-submit-admin">Publicar en la Web</button>
-          <button type="button" id="logout-modal-btn" style="width: 100%; margin-top: 0.5rem; background: transparent; border: none; color: #6b7280; cursor: pointer; font-size: 0.75rem;">Cerrar Sesión</button>
-        </form>
-      </div>
-
+  <!-- MODAL DE SUBIR BEAT (SOLO ACCESIBLE CON TU SESIÓN) -->
+  <div id="upload-modal" class="modal-overlay">
+    <div class="modal-card">
+      <span class="close-btn" id="close-upload">&times;</span>
+      <h2 style="font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem;">Upload New Beat</h2>
+      <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Publicación automática en tu catálogo público.</p>
+      
+      <form id="upload-form">
+        <div class="form-group">
+          <label>Título del Beat</label>
+          <input type="text" id="beat-title" placeholder="e.g. SHINOBI" required />
+        </div>
+        <div class="form-group">
+          <label>Género / Estilo</label>
+          <input type="text" id="beat-genre" placeholder="e.g. Dancehall / Urban" required />
+        </div>
+        <div class="form-group">
+          <label>BPM & Key</label>
+          <input type="text" id="beat-bpmkey" placeholder="e.g. 140 BPM - F# Minor" required />
+        </div>
+        <div class="form-group">
+          <label>URL Imagen de Portada</label>
+          <input type="url" id="beat-cover" placeholder="https://..." required />
+        </div>
+        <div class="form-group">
+          <label>Link Audio MP3 o YouTube Video ID</label>
+          <input type="text" id="beat-audio" placeholder="Link MP3 o ID YouTube (ej. dQw4w9WgXcQ)" required />
+        </div>
+        <button type="submit" class="btn-full">Publicar Beat Now</button>
+      </form>
     </div>
   </div>
 
@@ -195,87 +247,97 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
 
-    // Elementos del DOM
-    const openAdminBtn = document.getElementById('open-admin-btn');
-    const closeAdminBtn = document.getElementById('close-modal-btn');
-    const adminModal = document.getElementById('admin-modal');
-    const loginSection = document.getElementById('modal-login-section');
-    const uploadSection = document.getElementById('modal-upload-section');
-    const adminStatus = document.getElementById('admin-status');
+    // DOM Elements
+    const secretTrigger = document.getElementById('secret-trigger');
+    const secretDot = document.getElementById('secret-dot');
+    const loginModal = document.getElementById('login-modal');
+    const uploadModal = document.getElementById('upload-modal');
+    const adminToolbar = document.getElementById('admin-toolbar');
+    const openUploadBtn = document.getElementById('open-upload-btn');
+    const logoutBtn = document.getElementById('logout-btn');
     const beatsContainer = document.getElementById('beats-container');
 
-    // Abrir/Cerrar Modal
-    openAdminBtn.addEventListener('click', () => adminModal.style.display = 'flex');
-    closeAdminBtn.addEventListener('click', () => adminModal.style.display = 'none');
+    // MÉTODOS SECRETOS PARA ABRIR LOGIN (Haz clic en KUROZA o en el punto del footer)
+    secretTrigger.addEventListener('click', () => { if(!auth.currentUser) loginModal.style.display = 'flex'; });
+    secretDot.addEventListener('click', () => { if(!auth.currentUser) loginModal.style.display = 'flex'; });
 
-    // Escuchar Autenticación
+    // CERRAR MODALES
+    document.getElementById('close-login').addEventListener('click', () => loginModal.style.display = 'none');
+    document.getElementById('close-upload').addEventListener('click', () => uploadModal.style.display = 'none');
+    openUploadBtn.addEventListener('click', () => uploadModal.style.display = 'flex');
+
+    // DETECTAR SI ERES TÚ (SESIÓN ACTIVA)
     auth.onAuthStateChanged((user) => {
       if (user) {
-        loginSection.style.display = 'none';
-        uploadSection.style.display = 'block';
-        adminStatus.style.display = 'inline-block';
-        openAdminBtn.textContent = '⚡ Publicar Beat';
+        // SI INICIASTE SESIÓN: Muestra el botón de publicar arriba
+        adminToolbar.style.display = 'flex';
+        loginModal.style.display = 'none';
       } else {
-        loginSection.style.display = 'block';
-        uploadSection.style.display = 'none';
-        adminStatus.style.display = 'none';
-        openAdminBtn.textContent = '🔒 Admin Panel';
+        // PARA EL PÚBLICO: Oculta todo el panel de administración
+        adminToolbar.style.display = 'none';
       }
     });
 
-    // Iniciar Sesión
-    document.getElementById('quick-login-form').addEventListener('submit', (e) => {
+    // INICIAR SESIÓN
+    document.getElementById('login-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      const email = document.getElementById('modal-email').value;
-      const pass = document.getElementById('modal-pass').value;
+      const email = document.getElementById('login-email').value;
+      const pass = document.getElementById('login-pass').value;
 
       auth.signInWithEmailAndPassword(email, pass)
-        .catch(err => alert("Error: " + err.message));
+        .then(() => {
+          loginModal.style.display = 'none';
+          alert("¡Acceso concedido, Maestro!");
+        })
+        .catch(err => alert("Acceso denegado: " + err.message));
     });
 
-    // Cerrar Sesión
-    document.getElementById('logout-modal-btn').addEventListener('click', () => auth.signOut());
+    // CERRAR SESIÓN
+    logoutBtn.addEventListener('click', () => {
+      auth.signOut();
+      alert("Sesión cerrada.");
+    });
 
-    // Publicar Beat en Firestore
-    document.getElementById('quick-upload-form').addEventListener('submit', (e) => {
+    // SUBIR BEAT A FIRESTORE
+    document.getElementById('upload-form').addEventListener('submit', (e) => {
       e.preventDefault();
 
       const newBeat = {
         title: document.getElementById('beat-title').value,
         genre: document.getElementById('beat-genre').value,
         bpmkey: document.getElementById('beat-bpmkey').value,
-        cover: document.getElementById('beat-cover-url').value,
-        audio: document.getElementById('beat-audio-url').value,
+        cover: document.getElementById('beat-cover').value,
+        audio: document.getElementById('beat-audio').value,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       };
 
       db.collection('beats').add(newBeat).then(() => {
-        alert("¡Beat publicado con éxito en la página principal!");
-        document.getElementById('quick-upload-form').reset();
-        adminModal.style.display = 'none';
-      }).catch(err => alert("Error al guardar: " + err.message));
+        alert("¡Beat publicado exitosamente!");
+        document.getElementById('upload-form').reset();
+        uploadModal.style.display = 'none';
+      }).catch(err => alert("Error al subir: " + err.message));
     });
 
-    // Cargar Catálogo en Tiempo Real
+    // CARGAR BEATS AUTOMÁTICAMENTE PARA TODO EL MUNDO
     db.collection('beats').orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
       beatsContainer.innerHTML = '';
       if (snapshot.empty) {
-        beatsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">No hay beats publicados aún. ¡Usa el panel de Admin para agregar el primero!</p>';
+        beatsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--muted);">Próximamente nuevos lanzamientos.</p>';
         return;
       }
 
       snapshot.forEach(doc => {
         const beat = doc.data();
         const card = document.createElement('div');
-        card.style.cssText = "border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; background: #fafafa; text-align: center;";
+        card.style.cssText = "border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; background: var(--surface); text-align: center;";
         card.innerHTML = `
-          <img src="${beat.cover}" alt="${beat.title}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 6px; margin-bottom: 0.8rem;">
-          <h3 style="font-size: 1.1rem; text-transform: uppercase;">${beat.title}</h3>
-          <p style="font-size: 0.8rem; color: #6b7280; font-weight: bold;">${beat.genre} | ${beat.bpmkey}</p>
-          <div style="margin-top: 1rem;">
+          <img src="${beat.cover}" alt="${beat.title}" style="width: 100%; height: 220px; object-fit: cover; border-radius: 6px; margin-bottom: 1rem;">
+          <h3 style="font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;">${beat.title}</h3>
+          <p style="font-size: 0.8rem; color: var(--muted); font-weight: 700; margin: 0.4rem 0 1rem;">${beat.genre} | ${beat.bpmkey}</p>
+          <div>
             ${beat.audio.includes('http') 
               ? `<audio controls src="${beat.audio}" style="width: 100%;"></audio>`
-              : `<iframe width="100%" height="150" src="https://www.youtube.com/embed/${beat.audio}" frameborder="0" allowfullscreen style="border-radius:6px;"></iframe>`
+              : `<iframe width="100%" height="160" src="https://www.youtube.com/embed/${beat.audio}" frameborder="0" allowfullscreen style="border-radius:6px;"></iframe>`
             }
           </div>
         `;
