@@ -1,118 +1,383 @@
-/* ==========================================
-   1. HERO SECTION (ESCRITORIO & GENERAL)
-   ========================================== */
-.hero {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  display: flex;
+:root {
+  --bg: #ffffff;
+  --surface: #f9fafb;
+  --surface-card: #ffffff;
+  --border: #e5e7eb;
+  --text: #09090b;
+  --muted: #71717a;
+  --accent: #000000;
+}
+
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+  font-family: 'Plus Jakarta Sans', sans-serif; 
+}
+
+body { 
+  background-color: var(--bg); 
+  color: var(--text); 
+  line-height: 1.6; 
+}
+
+/* HEADER */
+header {
+  position: fixed; 
+  top: 0; left: 0; right: 0;
+  display: flex; 
+  justify-content: space-between; 
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0 1rem;
-  /* El '../' sale de la carpeta css/ para buscar la imagen */
-  background-image: 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.85) 70%, #ffffff 100%), 
-    url('../images/hero/techo japones.jpg');
-  background-position: top center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  padding: 1.2rem 3rem; 
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px); 
+  z-index: 100; 
+  border-bottom: 1px solid var(--border);
 }
 
-/* ==========================================
-   2. RESPONSIVE DESIGN (MÓVIL & TABLETS)
-   ========================================== */
-@media (max-width: 768px) {
-  /* Navegación más compacta */
-  .navbar {
-    padding: 1rem 4%;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  .nav-links {
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .nav-links a {
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-  }
-
-  /* Hero ajustado para celular (mantiene la imagen) */
-  .hero {
-    height: 90vh;
-    padding: 0 1.5rem;
-    background-image: 
-      linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.85) 70%, #ffffff 100%), 
-      url('../images/hero/techo japones.jpg');
-    background-position: top center;
-    background-size: cover;
-  }
-
-  .hero h1 {
-    font-size: 2.2rem;
-    letter-spacing: 3px;
-  }
-
-  .hero-kanji {
-    font-size: 0.9rem;
-    letter-spacing: 4px;
-  }
-
-  .hero p {
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-  }
-
-  /* Secciones y espaciados */
-  .section {
-    padding: 4rem 1.5rem;
-  }
-
-  .section-title h2 {
-    font-size: 1.5rem;
-    letter-spacing: 2px;
-  }
-
-  /* Tarjetas de Beats alineadas en columna */
-  .beat-card {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1rem;
-  }
-
-  .beat-card .btn-main {
-    width: 100%;
-    text-align: center;
-  }
-
-  /* Grillas a 1 sola columna limpia */
-  .services-grid,
-  .licenses-grid {
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-  }
-
-  .license-card {
-    padding: 2rem 1.2rem;
-  }
-
-  .license-price {
-    font-size: 2.2rem;
-  }
+.logo { 
+  font-size: 1.4rem; 
+  font-weight: 800; 
+  letter-spacing: 4px; 
+  color: var(--text); 
+  text-decoration: none; 
 }
 
-/* Pantallas muy pequeñas (iPhone SE, etc.) */
-@media (max-width: 480px) {
-  .hero h1 {
-    font-size: 1.8rem;
-  }
-  
-  .brand {
-    font-size: 1.2rem;
-  }
+nav a { 
+  color: var(--muted); 
+  text-decoration: none; 
+  margin-left: 2rem; 
+  font-size: 0.8rem; 
+  font-weight: 600; 
+  letter-spacing: 1px; 
+  text-transform: uppercase; 
+  transition: 0.3s; 
+}
+
+nav a:hover { 
+  color: var(--text); 
+}
+
+#admin-bar { 
+  display: none; 
+  align-items: center; 
+  gap: 1rem; 
+}
+
+.btn-admin-act { 
+  background: #000000; 
+  color: #ffffff; 
+  border: none; 
+  padding: 0.5rem 1rem; 
+  font-weight: 800; 
+  border-radius: 4px; 
+  cursor: pointer; 
+  font-size: 0.75rem; 
+  text-transform: uppercase; 
+}
+
+.btn-logout {
+  background: transparent; 
+  color: var(--muted); 
+  border: none; 
+  cursor: pointer; 
+  font-weight: 600;
+}
+
+/* HERO SECTION WITH TEMPLE IMAGE */
+.hero {
+  min-height: 85vh; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;
+  text-align: center; 
+  padding: 8rem 1rem 4rem;
+  background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.7) 100%), url('../images/hero/hero.jpg') center/cover no-repeat !important;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-content {
+  max-width: 900px;
+}
+
+.hero h1 { 
+  font-size: 4.5rem; 
+  font-weight: 800; 
+  letter-spacing: 12px; 
+  text-transform: uppercase; 
+  margin-bottom: 0.8rem; 
+  color: #ffffff; 
+  text-shadow: 0 4px 20px rgba(0,0,0,0.6); 
+}
+
+.hero p { 
+  font-size: 0.95rem; 
+  color: #e4e4e7; 
+  letter-spacing: 4px; 
+  text-transform: uppercase; 
+  margin-bottom: 2rem; 
+  font-weight: 600; 
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6); 
+}
+
+/* GENERAL SECTIONS */
+section { 
+  padding: 6rem 2rem; 
+  max-width: 1200px; 
+  margin: 0 auto; 
+}
+
+.section-title { 
+  text-align: center; 
+  font-size: 2rem; 
+  letter-spacing: 4px; 
+  text-transform: uppercase; 
+  margin-bottom: 3rem; 
+  color: #000000; 
+}
+
+.loading-text {
+  grid-column: 1/-1; 
+  text-align: center; 
+  color: var(--muted);
+}
+
+/* BEATS CATALOGUE GRID */
+.beats-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+  gap: 2rem; 
+}
+
+.beat-card { 
+  background: var(--surface-card); 
+  border: 1px solid var(--border); 
+  border-radius: 8px; 
+  padding: 1.2rem; 
+  text-align: center; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02); 
+}
+
+.beat-card img { 
+  width: 100%; 
+  height: 220px; 
+  object-fit: cover; 
+  border-radius: 6px; 
+  margin-bottom: 1rem; 
+}
+
+/* SERVICES */
+.services-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  gap: 2rem; 
+}
+
+.service-card { 
+  background: var(--surface); 
+  border: 1px solid var(--border); 
+  padding: 2.5rem; 
+  border-radius: 8px; 
+  text-align: center; 
+}
+
+.service-card h3 { 
+  font-size: 1.2rem; 
+  letter-spacing: 2px; 
+  margin-bottom: 1rem; 
+  text-transform: uppercase; 
+  color: #000000; 
+}
+
+.service-card p {
+  color: var(--muted); 
+  font-size: 0.9rem;
+}
+
+/* LICENSES */
+.licenses-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+  gap: 1.5rem; 
+}
+
+.lic-card { 
+  background: var(--surface); 
+  border: 1px solid var(--border); 
+  padding: 2rem; 
+  border-radius: 8px; 
+  text-align: center; 
+}
+
+.lic-price { 
+  font-size: 2.2rem; 
+  font-weight: 800; 
+  margin: 1rem 0; 
+  color: #000000; 
+}
+
+.lic-card p {
+  color: var(--muted); 
+  font-size: 0.8rem;
+}
+
+/* MEDIA / YOUTUBE GRID */
+.media-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+  gap: 1.5rem; 
+}
+
+.media-card { 
+  background: var(--surface); 
+  border: 1px solid var(--border); 
+  border-radius: 8px; 
+  overflow: hidden; 
+}
+
+/* CONTACT */
+.contact-desc {
+  color: var(--muted); 
+  max-width: 600px; 
+  margin: 0 auto 2rem;
+}
+
+.btn-contact {
+  display: inline-block; 
+  padding: 1rem 2.5rem; 
+  background: #000; 
+  color: #fff; 
+  text-decoration: none; 
+  font-weight: 800; 
+  border-radius: 4px; 
+  letter-spacing: 2px;
+}
+
+/* FOOTER */
+footer { 
+  text-align: center; 
+  padding: 3rem 1rem; 
+  border-top: 1px solid var(--border); 
+  color: var(--muted); 
+  font-size: 0.8rem; 
+  background: var(--surface); 
+}
+
+.flora-secret { 
+  cursor: pointer; 
+  transition: 0.3s; 
+  font-weight: 700; 
+}
+
+.flora-secret:hover { 
+  color: #000000; 
+}
+
+/* PRIVATE MODALS */
+.modal-overlay { 
+  position: fixed; 
+  top: 0; left: 0; right: 0; bottom: 0; 
+  background: rgba(0,0,0,0.5); 
+  backdrop-filter: blur(4px); 
+  display: none; 
+  justify-content: center; 
+  align-items: center; 
+  z-index: 1000; 
+  padding: 1rem; 
+}
+
+.modal-card { 
+  background: #ffffff; 
+  border: 1px solid var(--border); 
+  padding: 2.5rem; 
+  border-radius: 8px; 
+  width: 100%; 
+  max-width: 500px; 
+  position: relative; 
+  color: #000; 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+}
+
+.close-btn { 
+  position: absolute; 
+  top: 1rem; right: 1rem; 
+  font-size: 1.5rem; 
+  cursor: pointer; 
+  color: var(--muted); 
+}
+
+.modal-card h2 {
+  font-size: 1.2rem; 
+  letter-spacing: 2px; 
+  text-transform: uppercase; 
+  margin-bottom: 0.5rem;
+}
+
+.modal-desc {
+  font-size: 0.8rem; 
+  color: var(--muted); 
+  margin-bottom: 1.5rem;
+}
+
+.form-group { 
+  margin-bottom: 1.2rem; 
+  text-align: left; 
+}
+
+.form-group label { 
+  display: block; 
+  font-size: 0.75rem; 
+  font-weight: 700; 
+  text-transform: uppercase; 
+  margin-bottom: 0.4rem; 
+  letter-spacing: 1px; 
+  color: #000; 
+}
+
+.form-group input, .form-group select { 
+  width: 100%; 
+  padding: 0.8rem; 
+  background: #fff; 
+  border: 1px solid var(--border); 
+  color: #000; 
+  border-radius: 4px; 
+  outline: none; 
+}
+
+.btn-full { 
+  width: 100%; 
+  padding: 1rem; 
+  background: #000000; 
+  color: #ffffff; 
+  font-weight: 800; 
+  text-transform: uppercase; 
+  border: none; 
+  border-radius: 4px; 
+  cursor: pointer; 
+  margin-top: 0.5rem; 
+  letter-spacing: 1px; 
+}
+
+.tab-menu { 
+  display: flex; 
+  gap: 0.5rem; 
+  margin-bottom: 1.5rem; 
+}
+
+.tab-btn { 
+  flex: 1; 
+  padding: 0.6rem; 
+  background: var(--surface); 
+  border: 1px solid var(--border); 
+  color: var(--muted); 
+  cursor: pointer; 
+  font-size: 0.75rem; 
+  font-weight: 700; 
+  border-radius: 4px; 
+}
+
+.tab-btn.active { 
+  background: #000000; 
+  color: #ffffff; 
 }

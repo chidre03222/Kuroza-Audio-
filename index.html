@@ -7,95 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg: #ffffff;
-      --surface: #f9fafb;
-      --surface-card: #ffffff;
-      --border: #e5e7eb;
-      --text: #09090b;
-      --muted: #71717a;
-      --accent: #000000;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-    body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
-
-    /* HEADER */
-    header {
-      position: fixed; top: 0; left: 0; right: 0;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.2rem 3rem; background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--border);
-    }
-    .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 4px; color: var(--text); text-decoration: none; }
-    nav a { color: var(--muted); text-decoration: none; margin-left: 2rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; transition: 0.3s; }
-    nav a:hover { color: var(--text); }
-
-    #admin-bar { display: none; align-items: center; gap: 1rem; }
-    .btn-admin-act { background: #000000; color: #ffffff; border: none; padding: 0.5rem 1rem; font-weight: 800; border-radius: 4px; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; }
-
-    /* HERO SECTION WITH JAPANESE TEMPLE IMAGE */
-    .hero {
-      position: relative;
-      min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-      text-align: center; padding: 8rem 1rem 4rem;
-      border-bottom: 1px solid var(--border);
-      overflow: hidden;
-      background: #000000;
-    }
-    .hero-bg-img {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      object-fit: cover; z-index: 1; opacity: 0.55;
-    }
-    .hero-content {
-      position: relative; z-index: 2; max-width: 900px; color: #ffffff;
-    }
-    .hero h1 { font-size: 4.5rem; font-weight: 800; letter-spacing: 12px; text-transform: uppercase; margin-bottom: 0.8rem; color: #ffffff; text-shadow: 0 4px 20px rgba(0,0,0,0.6); }
-    .hero p { font-size: 0.95rem; color: #e4e4e7; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 2rem; font-weight: 600; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
-
-    /* GENERAL SECTIONS */
-    section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
-    .section-title { text-align: center; font-size: 2rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 3rem; color: #000000; }
-
-    /* BEATS CATALOGUE GRID */
-    .beats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
-    .beat-card { background: var(--surface-card); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-    .beat-card img { width: 100%; height: 220px; object-fit: cover; border-radius: 6px; margin-bottom: 1rem; }
-
-    /* SERVICES */
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-    .service-card { background: var(--surface); border: 1px solid var(--border); padding: 2.5rem; border-radius: 8px; text-align: center; }
-    .service-card h3 { font-size: 1.2rem; letter-spacing: 2px; margin-bottom: 1rem; text-transform: uppercase; color: #000000; }
-
-    /* LICENSES */
-    .licenses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
-    .lic-card { background: var(--surface); border: 1px solid var(--border); padding: 2rem; border-radius: 8px; text-align: center; }
-    .lic-price { font-size: 2.2rem; font-weight: 800; margin: 1rem 0; color: #000000; }
-
-    /* MEDIA / YOUTUBE GRID */
-    .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
-    .media-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-
-    /* FOOTER */
-    footer { text-align: center; padding: 3rem 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.8rem; background: var(--surface); }
-    .flora-secret { cursor: pointer; transition: 0.3s; font-weight: 700; }
-    .flora-secret:hover { color: #000000; }
-
-    /* PRIVATE MODALS */
-    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 1rem; }
-    .modal-card { background: #ffffff; border: 1px solid var(--border); padding: 2.5rem; border-radius: 8px; width: 100%; max-width: 500px; position: relative; color: #000; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-    .close-btn { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; cursor: pointer; color: var(--muted); }
-    .form-group { margin-bottom: 1.2rem; text-align: left; }
-    .form-group label { display: block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.4rem; letter-spacing: 1px; color: #000; }
-    .form-group input, .form-group select { width: 100%; padding: 0.8rem; background: #fff; border: 1px solid var(--border); color: #000; border-radius: 4px; outline: none; }
-    .btn-full { width: 100%; padding: 1rem; background: #000000; color: #ffffff; font-weight: 800; text-transform: uppercase; border: none; border-radius: 4px; cursor: pointer; margin-top: 0.5rem; letter-spacing: 1px; }
-
-    .tab-menu { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
-    .tab-btn { flex: 1; padding: 0.6rem; background: var(--surface); border: 1px solid var(--border); color: var(--muted); cursor: pointer; font-size: 0.75rem; font-weight: 700; border-radius: 4px; }
-    .tab-btn.active { background: #000000; color: #ffffff; }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -111,13 +23,12 @@
     </nav>
     <div id="admin-bar">
       <button class="btn-admin-act" id="open-upload-btn">+ Creator Panel</button>
-      <button style="background:transparent; color:var(--muted); border:none; cursor:pointer; font-weight:600;" id="logout-btn">Log Out</button>
+      <button class="btn-logout" id="logout-btn">Log Out</button>
     </div>
   </header>
 
-  <!-- HERO SECTION WITH EXACT IMAGE PATH -->
+  <!-- HERO SECTION WITH TEMPLE IMAGE -->
   <div class="hero">
-    <img src="images/hero/hero.jpg" alt="KUROZA Japanese Temple Hero" class="hero-bg-img">
     <div class="hero-content">
       <h1>KUROZA</h1>
       <p>CHINO THE ARCHITECT — MUSIC & AUDIO PRODUCTION</p>
@@ -128,7 +39,7 @@
   <section id="beats">
     <h2 class="section-title">Official Beat Catalogue</h2>
     <div class="beats-grid" id="beats-container">
-      <p style="grid-column: 1/-1; text-align: center; color: var(--muted);">Loading official catalogue...</p>
+      <p class="loading-text">Loading official catalogue...</p>
     </div>
   </section>
 
@@ -138,15 +49,15 @@
     <div class="services-grid">
       <div class="service-card">
         <h3>Professional Mixing</h3>
-        <p style="color: var(--muted); font-size: 0.9rem;">Analog and digital processing to give high space, depth, and punch to your stems.</p>
+        <p>Analog and digital processing to give high space, depth, and punch to your stems.</p>
       </div>
       <div class="service-card">
         <h3>Mastering</h3>
-        <p style="color: var(--muted); font-size: 0.9rem;">Commercial loudness optimization, clarity, and tonal balance tailored for digital platforms.</p>
+        <p>Commercial loudness optimization, clarity, and tonal balance tailored for digital platforms.</p>
       </div>
       <div class="service-card">
         <h3>Executive Production</h3>
-        <p style="color: var(--muted); font-size: 0.9rem;">Custom beat composition, technical arrangement, and complete artistic direction.</p>
+        <p>Custom beat composition, technical arrangement, and complete artistic direction.</p>
       </div>
     </div>
   </section>
@@ -158,22 +69,22 @@
       <div class="lic-card">
         <h3>BASIC LEASE</h3>
         <div class="lic-price">$39</div>
-        <p style="color: var(--muted); font-size: 0.8rem;">MP3 Untagged<br>50,000 Streams</p>
+        <p>MP3 Untagged<br>50,000 Streams</p>
       </div>
       <div class="lic-card">
         <h3>PREMIUM LEASE</h3>
         <div class="lic-price">$79</div>
-        <p style="color: var(--muted); font-size: 0.8rem;">WAV + MP3 Untagged<br>250,000 Streams</p>
+        <p>WAV + MP3 Untagged<br>250,000 Streams</p>
       </div>
       <div class="lic-card">
         <h3>UNLIMITED</h3>
         <div class="lic-price">$149</div>
-        <p style="color: var(--muted); font-size: 0.8rem;">WAV + Track Stems<br>Unlimited Streams</p>
+        <p>WAV + Track Stems<br>Unlimited Streams</p>
       </div>
       <div class="lic-card">
         <h3>EXCLUSIVE</h3>
         <div class="lic-price">$500+</div>
-        <p style="color: var(--muted); font-size: 0.8rem;">Full Ownership Rights<br>Exclusive Contract</p>
+        <p>Full Ownership Rights<br>Exclusive Contract</p>
       </div>
     </div>
   </section>
@@ -182,15 +93,15 @@
   <section id="media">
     <h2 class="section-title">Gallery & YouTube</h2>
     <div class="media-grid" id="media-container">
-      <p style="grid-column: 1/-1; text-align: center; color: var(--muted);">Loading media content...</p>
+      <p class="loading-text">Loading media content...</p>
     </div>
   </section>
 
   <!-- CONTACT SECTION -->
   <section id="contact" style="text-align: center;">
     <h2 class="section-title">Contact & Custom Work</h2>
-    <p style="color: var(--muted); max-width: 600px; margin: 0 auto 2rem;">Have an upcoming production, mixing, or mastering project? Let's work directly.</p>
-    <a href="mailto:kuroza@outlook.es" style="display: inline-block; padding: 1rem 2.5rem; background: #000; color: #fff; text-decoration: none; font-weight: 800; border-radius: 4px; letter-spacing: 2px;">SEND MESSAGE</a>
+    <p class="contact-desc">Have an upcoming production, mixing, or mastering project? Let's work directly.</p>
+    <a href="mailto:kuroza@outlook.es" class="btn-contact">SEND MESSAGE</a>
   </section>
 
   <!-- FOOTER WITH SECRET FLORA ACCESS -->
@@ -202,8 +113,8 @@
   <div id="login-modal" class="modal-overlay">
     <div class="modal-card">
       <span class="close-btn" id="close-login">&times;</span>
-      <h2 style="font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem;">Private Architect Access</h2>
-      <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Enter your credentials to manage catalogue.</p>
+      <h2>Private Architect Access</h2>
+      <p class="modal-desc">Enter your credentials to manage catalogue.</p>
       <form id="login-form">
         <div class="form-group">
           <label>Admin Email</label>
@@ -222,7 +133,7 @@
   <div id="upload-modal" class="modal-overlay">
     <div class="modal-card">
       <span class="close-btn" id="close-upload">&times;</span>
-      <h2 style="font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem;">+ Upload Content</h2>
+      <h2 style="margin-bottom: 1rem;">+ Upload Content</h2>
       
       <!-- Tabs -->
       <div class="tab-menu">
@@ -378,7 +289,7 @@
     // Load Real-time Beats
     db.collection('beats').orderBy('createdAt', 'desc').onSnapshot(snap => {
       beatsContainer.innerHTML = '';
-      if(snap.empty) { beatsContainer.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:var(--muted);">No beat releases yet.</p>'; return; }
+      if(snap.empty) { beatsContainer.innerHTML = '<p class="loading-text">No beat releases yet.</p>'; return; }
       snap.forEach(doc => {
         const b = doc.data();
         beatsContainer.innerHTML += `
@@ -398,7 +309,7 @@
     // Load Real-time Media / YouTube
     db.collection('media').orderBy('createdAt', 'desc').onSnapshot(snap => {
       mediaContainer.innerHTML = '';
-      if(snap.empty) { mediaContainer.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:var(--muted);">No videos or photos added yet.</p>'; return; }
+      if(snap.empty) { mediaContainer.innerHTML = '<p class="loading-text">No videos or photos added yet.</p>'; return; }
       snap.forEach(doc => {
         const m = doc.data();
         mediaContainer.innerHTML += `
