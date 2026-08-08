@@ -8,6 +8,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
   
+  <!-- SDK de Supabase JS v2 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Archivo de configuración global de Supabase (ajusta la ruta si está en la raíz: '../js/supabase.js' o './js/supabase.js') -->
+  <script src="../js/supabase.js"></script>
+
   <style>
     :root {
       --bg: #ffffff;
@@ -162,7 +167,7 @@
       <div class="form-group">
         <label>BPM & Key</label>
         <div style="display: flex; gap: 0.5rem;">
-          <input type="text" id="beat-bpm" placeholder="140 BPM" required />
+          <input type="number" id="beat-bpm" placeholder="140" required />
           <input type="text" id="beat-key" placeholder="F# Minor" required />
         </div>
       </div>
@@ -174,68 +179,106 @@
         <label>Cover Art (Image File)</label>
         <input type="file" id="beat-cover-file" accept="image/*" required />
       </div>
-      <div class="form-group">
-        <label>YouTube Video ID (Optional)</label>
-        <input type="text" id="beat-youtube-id" placeholder="e.g. dQw4w9WgXcQ" />
-      </div>
-      <button type="submit" class="btn-admin">Publish Beat Now</button>
+      <button type="submit" id="submit-btn" class="btn-admin">Publish Beat Now</button>
     </form>
     <span id="logout-btn" class="logout-link">Log Out & Exit</span>
   </div>
 
-  <!-- SDKs de Firebase v9 Compat -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
-
   <script>
-    // Configuración REAL oficial con O mayúscula en apiKey
-    const firebaseConfig = {
-      apiKey: "AIzaSyAOgnePUKfomaD32xGEonJ_DDnfwNpNzmQ",
-      authDomain: "kuroza-app.firebaseapp.com",
-      projectId: "kuroza-app",
-      storageBucket: "kuroza-app.firebasestorage.app",
-      messagingSenderId: "967232879538",
-      appId: "1:967232879538:web:970f4312098cfbb23f02ab"
-    };
-
-    // Inicializar Firebase
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-
-    const loginForm = document.getElementById('login-form');
     const loginPanel = document.getElementById('login-panel');
     const dashboardPanel = document.getElementById('dashboard-panel');
+    const loginForm = document.getElementById('login-form');
+    const uploadForm = document.getElementById('upload-beat-form');
     const logoutBtn = document.getElementById('logout-btn');
 
-    // Escuchar el estado de autenticación en tiempo real
-    auth.onAuthStateChanged((user) => {
-      if (user) {
+    // 1. Comprobar la sesión activa al cargar la página
+    async function checkAuth() {
+      const { data: { session } } = await _supabase.auth.getSession();
+      if (session) {
         loginPanel.style.display = 'none';
         dashboardPanel.style.display = 'block';
       } else {
         loginPanel.style.display = 'block';
         dashboardPanel.style.display = 'none';
       }
-    });
+    }
+    checkAuth();
 
-    // Iniciar Sesión con Firebase
-    loginForm.addEventListener('submit', (e) => {
+    // 2. Iniciar sesión con Supabase Auth
+    loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('login-email').value;
       const pass = document.getElementById('login-pass').value;
 
-      auth.signInWithEmailAndPassword(email, pass)
-        .then((userCredential) => {
-          console.log("Acceso concedido:", userCredential.user);
-        })
-        .catch((error) => {
-          alert("Acceso denegado: " + error.message);
-        });
+      const { data, error } = await _supabase.auth.signInWithPassword({
+        email: email,
+        password: pass
+      });
+
+      if (error) {
+        alert("Acceso denegado: " + error.message);
+      } else {
+        loginPanel.style.display = 'none';
+        dashboardPanel.style.display = 'block';
+      }
     });
 
-    // Cerrar Sesión
-    logoutBtn.addEventListener('click', () => {
-      auth.signOut();
+    // 3. Cerrar sesión
+    logoutBtn.addEventListener('click', async () => {
+      await _supabase.auth.signOut();
+      dashboardPanel.style.display = 'none';
+      loginPanel.style.display = 'block';
+    });
+
+    // 4. Subir Beat y guardar archivos en el Storage ('kuroza-files')
+    uploadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      btn.innerText = 'PUBLISHING...';
+      btn.disabled = true;
+
+      const title = document.getElementById('beat-title').value;
+      const genre = document.getElementById('beat-genre').value;
+      const bpm = parseInt(document.getElementById('beat-bpm').value);
+      const musical_key = document.getElementById('beat-key').value;
+
+      const audioFile = document.getElementById('beat-audio-file').files[0];
+      const coverFile = document.getElementById('beat-cover-file').files[0];
+
+      try {
+        // Subir Audio al Bucket 'kuroza-files'
+        const audioPath = `audio/${Date.now()}_${audioFile.name}`;
+        const { error: audioError } = await _supabase.storage.from('kuroza-files').upload(audioPath, audioFile);
+        if (audioError) throw audioError;
+        const audio_url = _supabase.storage.from('kuroza-files').getPublicUrl(audioPath).data.publicUrl;
+
+        // Subir Portada al Bucket 'kuroza-files'
+        const coverPath = `covers/${Date.now()}_${coverFile.name}`;
+        const { error: coverError } = await _supabase.storage.from('kuroza-files').upload(coverPath, coverFile);
+        if (coverError) throw coverError;
+        const cover_url = _supabase.storage.from('kuroza-files').getPublicUrl(coverPath).data.publicUrl;
+
+        // Guardar registro en la tabla 'beats' de Supabase
+        const { error: dbError } = await _supabase.from('beats').insert([{
+          title,
+          genre,
+          bpm,
+          musical_key,
+          cover_url,
+          audio_url
+        }]);
+
+        if (dbError) throw dbError;
+
+        alert('¡Beat publicado exitosamente en el catálogo!');
+        uploadForm.reset();
+      } catch (error) {
+        alert('Error al publicar: ' + error.message);
+        console.error(error);
+      } finally {
+        btn.innerText = 'Publish Beat Now';
+        btn.disabled = false;
+      }
     });
   </script>
 </body>
